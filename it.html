@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101114">
+  <title>Giulio Lo Cigno — Sviluppatore Python e studente di ingegneria informatica</title>
+  <meta name="description" content="Giulio Lo Cigno, sviluppatore Python e studente di laurea magistrale in Computer Engineering ad Aarhus University. Software, IA e visione artificiale.">
+  <meta property="og:title" content="Giulio Lo Cigno — Sviluppatore Python e studente di ingegneria informatica">
+  <meta property="og:description" content="Giulio Lo Cigno, sviluppatore Python e studente di laurea magistrale in Computer Engineering ad Aarhus University. Software, IA e visione artificiale.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="en" href="index.html"><link rel="alternate" hreflang="it" href="it.html"><link rel="alternate" hreflang="da" href="da.html"><link rel="alternate" hreflang="x-default" href="index.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="trail.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <canvas id="pearl-trail" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="Giulio Lo Cigno">GLC<span aria-hidden="true">.</span></a>
+    <nav class="languages" aria-label="Scegli la lingua"><a href="index.html" lang="en" hreflang="en">English</a><a href="it.html" lang="it" hreflang="it" aria-current="page">Italiano</a><a href="da.html" lang="da" hreflang="da">Dansk</a></nav>
+  </header>
+  <div class="layout">
+    <aside class="profile">
+      <div class="portrait-frame"><img src="portrait.png" width="250" height="250" alt="Ritratto di Giulio Lo Cigno"></div>
+      <p class="profile-name">Giulio <br>Lo Cigno<span aria-hidden="true">.</span></p>
+      <p class="role">Sviluppatore Python e studente magistrale</p>
+      <p class="location"><span aria-hidden="true">⌖</span> Aarhus, Danimarca</p>
+      <a class="contact-button" href="mailto:giulio.locigno@gmail.com">Contattami <span aria-hidden="true">↗</span></a>
+      <nav class="sections" aria-label="Sezioni"><a href="#about"><span aria-hidden="true">01</span>Profilo</a><a href="#experience"><span aria-hidden="true">02</span>Esperienza</a><a href="#projects"><span aria-hidden="true">03</span>Progetti</a><a href="#education"><span aria-hidden="true">04</span>Formazione</a><a href="#skills"><span aria-hidden="true">05</span>Competenze</a></nav>
+      <div class="effect-control" hidden>
+        <button id="trail-toggle" type="button" aria-pressed="false" data-on="Attiva" data-off="Disattiva" aria-describedby="trail-hint"><span class="pearl-dot" aria-hidden="true"></span>Scia madreperla<span class="toggle-state">Disattiva</span></button>
+        <p id="trail-hint">Muovi il mouse. Tieni premuto un pulsante per intensificare la scia.</p>
+      </div>
+    </aside>
+    <main id="main" tabindex="-1">
+      <section id="about" class="intro-section" aria-labelledby="intro-title">
+        <p class="eyebrow">Sviluppo software · IA · Visione artificiale</p>
+        <h1 id="intro-title">Sviluppare software. Esplorare l’intelligenza.</h1>
+        <p class="lead">Sono Giulio, sviluppatore Python e studente di laurea magistrale in Computer Engineering presso Aarhus University, con specializzazione in IA e visione artificiale.</p>
+        <p>Presso EIC-SEWPG sviluppo strumenti interni per automatizzare simulazioni, analizzare dati e supportare i flussi di lavoro ingegneristici. Mi interessano il deep learning, l’IA spiegabile e la robotica: unisco la curiosità per i sistemi intelligenti allo sviluppo concreto di software.</p>
+        <div class="intro-rule" aria-hidden="true"><span>01 — 05</span><span>GLC / PORTFOLIO</span></div>
+      </section>
+      <section id="experience" aria-labelledby="experience-title">
+        <h2 id="experience-title"><span aria-hidden="true">02</span>Esperienza attuale</h2>
+        <article class="work-entry">
+          <div class="entry-top"><h3>Sviluppatore Python — impiego studentesco</h3><span class="date">Set 2025 — oggi</span></div>
+          <p class="company">European Innovation Center · Shanghai Electric Wind Power Group <span class="acronym">(EIC-SEWPG)</span></p>
+          <ul class="work-list"><li>Sviluppo e manutenzione di strumenti Python per eseguire e automatizzare simulazioni su un cluster interno con SLURM.</li><li>Sviluppo di strumenti per l’elaborazione e l’analisi di dati su larga scala, la visualizzazione e la reportistica.</li><li>Progettazione di meccanismi di autenticazione e controllo degli accessi e di infrastrutture per distribuire applicazioni interne containerizzate.</li></ul>
+          <ul class="tags"><li>Python</li><li>SLURM</li><li>Docker</li></ul>
+        </article>
+      </section>
+      <section id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title"><span aria-hidden="true">03</span>Progetti selezionati</h2><article class="project"><div class="entry-top"><h3>Generazione procedurale di mondi</h3><span class="date">2023 — 2024</span></div><p>Sviluppo in gruppo, con altri tre studenti, di una libreria Rust per generare mondi tramite funzioni di rumore. Ho creato un visualizzatore 2D con Rocket e JavaScript, poi un visualizzatore 3D interattivo in Bevy in autonomia.</p><div class="project-bottom"><ul class="tags"><li>Rust</li><li>Bevy</li><li>JavaScript</li></ul><a class="project-link" href="https://github.com/Advanced-Programming-Carasau-Project">Vedi il progetto<span class="sr-only">: Generazione procedurale di mondi</span> <span aria-hidden="true">↗</span></a></div></article><article class="project"><div class="entry-top"><h3>SpottyThings</h3><span class="date">2022 — 2023</span></div><p>Progettazione e sviluppo, con altri due studenti, di un’applicazione web per noleggiare, vendere e acquistare beni. Backend in Node.js, frontend in Vue.js e database MongoDB, con distribuzione su Railway.</p><div class="project-bottom"><ul class="tags"><li>Node.js</li><li>Vue.js</li><li>MongoDB</li></ul><a class="project-link" href="https://github.com/IS22-TEAM-25">Vedi il progetto<span class="sr-only">: SpottyThings</span> <span aria-hidden="true">↗</span></a></div></article><article class="project"><div class="entry-top"><h3>TUM4WORLD</h3><span class="date">2023</span></div><p>Realizzazione, con altri tre studenti, di un sito per un’associazione con privilegi di accesso differenziati per ruolo. Backend con Java Servlet e frontend con JavaScript e CSS.</p><div class="project-bottom"><ul class="tags"><li>Java</li><li>JavaScript</li><li>CSS</li></ul><a class="project-link" href="https://github.com/Team19-WebP">Vedi il progetto<span class="sr-only">: TUM4WORLD</span> <span aria-hidden="true">↗</span></a></div></article>
+      </section>
+      <section id="education" aria-labelledby="education-title">
+        <h2 id="education-title"><span aria-hidden="true">04</span>Formazione</h2><article class="education-entry"><span class="date">2025 — oggi</span><div><h3>Laurea magistrale in Computer Engineering (MSc)</h3><p class="school">Aarhus University</p><p>Specializzazione in IA e visione artificiale.</p></div></article><article class="education-entry"><span class="date">2021 — 2024</span><div><h3>Laurea in Informatica (BSc)</h3><p class="school">Università degli Studi di Trento</p><p>Tesi sulla generazione video condizionata e non condizionata e sull’allineamento tra video e testo.</p></div></article>
+        <div class="thesis"><p class="eyebrow">Tesi di laurea</p><p lang="en">Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment</p></div>
+      </section>
+      <section id="skills" aria-labelledby="skills-title">
+        <h2 id="skills-title"><span aria-hidden="true">05</span>Competenze e lingue</h2>
+        <dl class="skills"><div><dt>Programmazione</dt><dd>Python, Rust, C/C++, Java, JavaScript, SQL</dd></div><div><dt>IA e dati</dt><dd>TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME</dd></div><div><dt>Strumenti e piattaforme</dt><dd>FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM</dd></div></dl><h3 class="language-heading">Lingue</h3><ul class="spoken"><li>Italiano · Madrelingua</li><li>Inglese · C1</li><li>Tedesco · B1</li><li>Danese · A2</li></ul>
+      </section>
+      <footer><p>Giulio Lo Cigno · Aarhus, Danimarca</p><a href="#top">Torna all’inizio ↑</a></footer>
+    </main>
+  </div>
+</body>
+</html>

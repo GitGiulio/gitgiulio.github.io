@@ -1,0 +1,164 @@
+{
+  "profile": {
+    "email": "giulio.locigno@gmail.com"
+  },
+  "en": {
+    "trailLabel": "Pearl trail",
+    "trailOn": "On",
+    "trailOff": "Off",
+    "trailHint": "Move your mouse. Hold either button to intensify.",
+    "title": "Giulio Lo Cigno — Python developer & computer engineering student",
+    "description": "Giulio Lo Cigno, Python developer and MSc student in Computer Engineering at Aarhus University. Software engineering, AI and computer vision.",
+    "role": "Python developer & MSc student",
+    "location": "Aarhus, Denmark",
+    "skip": "Skip to content",
+    "navigation": "Sections",
+    "languageLabel": "Choose language",
+    "portraitAlt": "Portrait of Giulio Lo Cigno",
+    "eyebrow": "Software engineering · AI · Computer vision",
+    "heading": "Building software. Exploring intelligence.",
+    "intro": "I’m Giulio, a Python developer and MSc student in Computer Engineering at Aarhus University, specialising in AI and computer vision.",
+    "about": "At EIC-SEWPG, I develop internal tools for simulation automation, data analysis and engineering workflows. My interests span deep learning, explainable AI and robotics — connecting an interest in intelligent systems with hands-on software development.",
+    "nav": ["About", "Experience", "Projects", "Education", "Skills"],
+    "contact": "Get in touch",
+    "experienceLabel": "Current work",
+    "experienceTitle": "Student Python Developer",
+    "experienceDate": "Sep 2025 — present",
+    "company": "European Innovation Center · Shanghai Electric Wind Power Group",
+    "experience": [
+      "Develop and maintain Python tools for simulation execution and automation on an internal SLURM cluster.",
+      "Build tools for large-scale data processing, analysis, visualisation and reporting.",
+      "Design authentication and access control mechanisms, and infrastructure for deploying containerised internal applications."
+    ],
+    "projectsLabel": "Selected projects",
+    "projectLink": "View project",
+    "projects": [
+      {"title": "Procedural world generation", "date": "2023 — 2024", "description": "Co-developed a noise-based world generation library in Rust with three fellow students. Built a 2D visualiser with Rocket and JavaScript, then independently developed an interactive 3D visualiser in Bevy.", "tags": ["Rust", "Bevy", "JavaScript"], "url": "https://github.com/Advanced-Programming-Carasau-Project"},
+      {"title": "SpottyThings", "date": "2022 — 2023", "description": "Designed and built a web application for renting, selling and buying goods with two teammates. Worked with a Node.js backend, Vue.js frontend and MongoDB database, with deployment on Railway.", "tags": ["Node.js", "Vue.js", "MongoDB"], "url": "https://github.com/IS22-TEAM-25"},
+      {"title": "TUM4WORLD", "date": "2023", "description": "Built an association website with three fellow students, with different access privileges for different user roles. Used Java Servlets for the backend and JavaScript and CSS for the frontend.", "tags": ["Java", "JavaScript", "CSS"], "url": "https://github.com/Team19-WebP"}
+    ],
+    "educationLabel": "Education",
+    "education": [
+      {"degree": "MSc in Computer Engineering", "school": "Aarhus University", "date": "2025 — present", "detail": "Specialisation in AI & Computer Vision."},
+      {"degree": "BSc in Computer Science", "school": "Università degli Studi di Trento", "date": "2021 — 2024", "detail": "Bachelor’s thesis on conditional and unconditional video generation and video–text alignment."}
+    ],
+    "thesisLabel": "Bachelor’s thesis",
+    "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
+    "skillsLabel": "Skills & languages",
+    "skillGroups": [
+      {"name": "Programming", "items": "Python, Rust, C/C++, Java, JavaScript, SQL"},
+      {"name": "AI & data", "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"},
+      {"name": "Tools & platforms", "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"}
+    ],
+    "languagesLabel": "Languages",
+    "languages": ["Italian · Native", "English · C1", "German · B1", "Danish · A2"],
+    "footer": "Giulio Lo Cigno · Aarhus, Denmark",
+    "backTop": "Back to top"
+  },
+  "it": {
+    "trailLabel": "Scia madreperla",
+    "trailOn": "Attiva",
+    "trailOff": "Disattiva",
+    "trailHint": "Muovi il mouse. Tieni premuto un pulsante per intensificare la scia.",
+    "title": "Giulio Lo Cigno — Sviluppatore Python e studente di ingegneria informatica",
+    "description": "Giulio Lo Cigno, sviluppatore Python e studente di laurea magistrale in Computer Engineering ad Aarhus University. Software, IA e visione artificiale.",
+    "role": "Sviluppatore Python e studente magistrale",
+    "location": "Aarhus, Danimarca",
+    "skip": "Vai al contenuto",
+    "navigation": "Sezioni",
+    "languageLabel": "Scegli la lingua",
+    "portraitAlt": "Ritratto di Giulio Lo Cigno",
+    "eyebrow": "Sviluppo software · IA · Visione artificiale",
+    "heading": "Sviluppare software. Esplorare l’intelligenza.",
+    "intro": "Sono Giulio, sviluppatore Python e studente di laurea magistrale in Computer Engineering presso Aarhus University, con specializzazione in IA e visione artificiale.",
+    "about": "Presso EIC-SEWPG sviluppo strumenti interni per automatizzare simulazioni, analizzare dati e supportare i flussi di lavoro ingegneristici. Mi interessano il deep learning, l’IA spiegabile e la robotica: unisco la curiosità per i sistemi intelligenti allo sviluppo concreto di software.",
+    "nav": ["Profilo", "Esperienza", "Progetti", "Formazione", "Competenze"],
+    "contact": "Contattami",
+    "experienceLabel": "Esperienza attuale",
+    "experienceTitle": "Sviluppatore Python — impiego studentesco",
+    "experienceDate": "Set 2025 — oggi",
+    "company": "European Innovation Center · Shanghai Electric Wind Power Group",
+    "experience": [
+      "Sviluppo e manutenzione di strumenti Python per eseguire e automatizzare simulazioni su un cluster interno con SLURM.",
+      "Sviluppo di strumenti per l’elaborazione e l’analisi di dati su larga scala, la visualizzazione e la reportistica.",
+      "Progettazione di meccanismi di autenticazione e controllo degli accessi e di infrastrutture per distribuire applicazioni interne containerizzate."
+    ],
+    "projectsLabel": "Progetti selezionati",
+    "projectLink": "Vedi il progetto",
+    "projects": [
+      {"title": "Generazione procedurale di mondi", "date": "2023 — 2024", "description": "Sviluppo in gruppo, con altri tre studenti, di una libreria Rust per generare mondi tramite funzioni di rumore. Ho creato un visualizzatore 2D con Rocket e JavaScript, poi un visualizzatore 3D interattivo in Bevy in autonomia.", "tags": ["Rust", "Bevy", "JavaScript"], "url": "https://github.com/Advanced-Programming-Carasau-Project"},
+      {"title": "SpottyThings", "date": "2022 — 2023", "description": "Progettazione e sviluppo, con altri due studenti, di un’applicazione web per noleggiare, vendere e acquistare beni. Backend in Node.js, frontend in Vue.js e database MongoDB, con distribuzione su Railway.", "tags": ["Node.js", "Vue.js", "MongoDB"], "url": "https://github.com/IS22-TEAM-25"},
+      {"title": "TUM4WORLD", "date": "2023", "description": "Realizzazione, con altri tre studenti, di un sito per un’associazione con privilegi di accesso differenziati per ruolo. Backend con Java Servlet e frontend con JavaScript e CSS.", "tags": ["Java", "JavaScript", "CSS"], "url": "https://github.com/Team19-WebP"}
+    ],
+    "educationLabel": "Formazione",
+    "education": [
+      {"degree": "Laurea magistrale in Computer Engineering (MSc)", "school": "Aarhus University", "date": "2025 — oggi", "detail": "Specializzazione in IA e visione artificiale."},
+      {"degree": "Laurea in Informatica (BSc)", "school": "Università degli Studi di Trento", "date": "2021 — 2024", "detail": "Tesi sulla generazione video condizionata e non condizionata e sull’allineamento tra video e testo."}
+    ],
+    "thesisLabel": "Tesi di laurea",
+    "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
+    "skillsLabel": "Competenze e lingue",
+    "skillGroups": [
+      {"name": "Programmazione", "items": "Python, Rust, C/C++, Java, JavaScript, SQL"},
+      {"name": "IA e dati", "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"},
+      {"name": "Strumenti e piattaforme", "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"}
+    ],
+    "languagesLabel": "Lingue",
+    "languages": ["Italiano · Madrelingua", "Inglese · C1", "Tedesco · B1", "Danese · A2"],
+    "footer": "Giulio Lo Cigno · Aarhus, Danimarca",
+    "backTop": "Torna all’inizio"
+  },
+  "da": {
+    "trailLabel": "Perlemorsspor",
+    "trailOn": "Til",
+    "trailOff": "Fra",
+    "trailHint": "Bevæg musen. Hold en af museknapperne nede for at forstærke sporet.",
+    "title": "Giulio Lo Cigno — Python-udvikler og kandidatstuderende i computerteknologi",
+    "description": "Giulio Lo Cigno, Python-udvikler og kandidatstuderende i Computer Engineering på Aarhus Universitet. Softwareudvikling, AI og computer vision.",
+    "role": "Python-udvikler og kandidatstuderende",
+    "location": "Aarhus, Danmark",
+    "skip": "Gå til indhold",
+    "navigation": "Afsnit",
+    "languageLabel": "Vælg sprog",
+    "portraitAlt": "Portræt af Giulio Lo Cigno",
+    "eyebrow": "Softwareudvikling · AI · Computer vision",
+    "heading": "Udvikler software. Udforsker intelligens.",
+    "intro": "Jeg hedder Giulio og er Python-udvikler og kandidatstuderende i Computer Engineering på Aarhus Universitet med specialisering i AI og computer vision.",
+    "about": "Hos EIC-SEWPG udvikler jeg interne værktøjer til automatisering af simuleringer, dataanalyse og tekniske arbejdsgange. Mine interesser spænder over deep learning, forklarlig AI og robotteknologi — jeg kombinerer min interesse for intelligente systemer med praktisk softwareudvikling.",
+    "nav": ["Om mig", "Erfaring", "Projekter", "Uddannelse", "Kompetencer"],
+    "contact": "Kontakt mig",
+    "experienceLabel": "Nuværende arbejde",
+    "experienceTitle": "Studentermedhjælper — Python-udvikling",
+    "experienceDate": "Sep 2025 — nu",
+    "company": "European Innovation Center · Shanghai Electric Wind Power Group",
+    "experience": [
+      "Udvikler og vedligeholder Python-værktøjer til afvikling og automatisering af simuleringer på en intern SLURM-klynge.",
+      "Udvikler værktøjer til databehandling og analyse i stor skala samt visualisering og rapportering.",
+      "Designer mekanismer til autentifikation og adgangskontrol samt infrastruktur til udrulning af containerbaserede interne applikationer."
+    ],
+    "projectsLabel": "Udvalgte projekter",
+    "projectLink": "Se projektet",
+    "projects": [
+      {"title": "Procedurel verdensgenerering", "date": "2023 — 2024", "description": "Udviklede et Rust-bibliotek til støjbaseret verdensgenerering sammen med tre medstuderende. Byggede en 2D-visualisering med Rocket og JavaScript og udviklede derefter selv en interaktiv 3D-visualisering i Bevy.", "tags": ["Rust", "Bevy", "JavaScript"], "url": "https://github.com/Advanced-Programming-Carasau-Project"},
+      {"title": "SpottyThings", "date": "2022 — 2023", "description": "Designede og byggede en webapplikation til udlejning, salg og køb af varer med to medstuderende. Arbejdede med Node.js, Vue.js og MongoDB og udrullede applikationen på Railway.", "tags": ["Node.js", "Vue.js", "MongoDB"], "url": "https://github.com/IS22-TEAM-25"},
+      {"title": "TUM4WORLD", "date": "2023", "description": "Byggede et foreningswebsted med tre medstuderende med forskellige adgangsrettigheder for forskellige brugerroller. Brugte Java Servlets til backend og JavaScript og CSS til frontend.", "tags": ["Java", "JavaScript", "CSS"], "url": "https://github.com/Team19-WebP"}
+    ],
+    "educationLabel": "Uddannelse",
+    "education": [
+      {"degree": "Kandidatuddannelse i Computer Engineering (MSc)", "school": "Aarhus Universitet", "date": "2025 — nu", "detail": "Specialisering i AI og computer vision."},
+      {"degree": "Bachelor i datalogi (BSc)", "school": "Università degli Studi di Trento", "date": "2021 — 2024", "detail": "Bachelorprojekt om betinget og ubetinget videogenerering og overensstemmelse mellem video og tekst."}
+    ],
+    "thesisLabel": "Bachelorprojekt",
+    "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
+    "skillsLabel": "Kompetencer og sprog",
+    "skillGroups": [
+      {"name": "Programmering", "items": "Python, Rust, C/C++, Java, JavaScript, SQL"},
+      {"name": "AI og data", "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"},
+      {"name": "Værktøjer og platforme", "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"}
+    ],
+    "languagesLabel": "Sprog",
+    "languages": ["Italiensk · Modersmål", "Engelsk · C1", "Tysk · B1", "Dansk · A2"],
+    "footer": "Giulio Lo Cigno · Aarhus, Danmark",
+    "backTop": "Til toppen"
+  }
+}
