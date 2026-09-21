@@ -17,9 +17,46 @@
     "portraitAlt": "Portrait of Giulio Lo Cigno",
     "eyebrow": "Software engineering · AI · Computer vision",
     "heading": "Building software. Exploring intelligence.",
-    "intro": "I’m Giulio, a Python developer and MSc student in Computer Engineering at Aarhus University, specialising in AI and computer vision.",
+    "intro": "I'm Giulio, a Python developer and MSc student in Computer Engineering at Aarhus University, specialising in AI and computer vision.",
     "about": "At EIC-SEWPG, I develop internal tools for simulation automation, data analysis and engineering workflows. My interests span deep learning, explainable AI and robotics — connecting an interest in intelligent systems with hands-on software development.",
-    "nav": ["About", "Experience", "Projects", "Education", "Skills"],
+    "nav": [
+      "About",
+      "Experience",
+      "Projects",
+      "Education",
+      "Skills",
+      "Interests"
+    ],
+    "interestsLabel": "Personal interests",
+    "interestsIntro": "Away from software, I enjoy sport, chess and following developments in space exploration.",
+    "interests": [
+      {
+        "title": "Ice skating",
+        "description": "I started speed skating at the age of four, competing in both short-track and long-track disciplines. As a junior, I reached the podium several times in my category at the Italian Championships.",
+        "media": {
+          "type": "image",
+          "src": "media/ice_skating.jpg",
+          "alt": "Ice skating"
+        }
+      },
+      {
+        "title": "Bouldering",
+        "description": "Since moving to Denmark, I've taken up bouldering in place of short-track skating. I especially enjoy climbing with friends.",
+        "media": {
+          "type": "image",
+          "src": "media/bouldering.mp4",
+          "alt": "Bouldering"
+        }
+      },
+      {
+        "title": "Chess",
+        "description": "I played chess for several years and took part in tournaments, including two editions of the CONI Trophy with the Trentino team. These days, I enjoy playing online in my free time."
+      },
+      {
+        "title": "Rocket science & space",
+        "description": "I'm fascinated by propulsion systems, orbital mechanics and spacecraft design. I enjoy learning how rockets work and keeping up with developments in space exploration."
+      }
+    ],
     "contact": "Get in touch",
     "experienceLabel": "Current work",
     "experienceTitle": "Student Python Developer",
@@ -33,33 +70,97 @@
     "projectsLabel": "Selected projects",
     "projectLink": "View project",
     "projects": [
-      {"title": "Procedural world generation", "date": "2023 — 2024", "description": "Co-developed a noise-based world generation library in Rust with three fellow students. Built a 2D visualiser with Rocket and JavaScript, then independently developed an interactive 3D visualiser in Bevy.", "tags": ["Rust", "Bevy", "JavaScript"], "url": "https://github.com/Advanced-Programming-Carasau-Project"},
-      {"title": "SpottyThings", "date": "2022 — 2023", "description": "Designed and built a web application for renting, selling and buying goods with two teammates. Worked with a Node.js backend, Vue.js frontend and MongoDB database, with deployment on Railway.", "tags": ["Node.js", "Vue.js", "MongoDB"], "url": "https://github.com/IS22-TEAM-25"},
-      {"title": "TUM4WORLD", "date": "2023", "description": "Built an association website with three fellow students, with different access privileges for different user roles. Used Java Servlets for the backend and JavaScript and CSS for the frontend.", "tags": ["Java", "JavaScript", "CSS"], "url": "https://github.com/Team19-WebP"}
+      {
+        "title": "Procedural world generation",
+        "date": "2023 — 2024",
+        "description": "Co-developed a noise-based world generation library in Rust with three fellow students. Built a 2D visualiser with Rocket and JavaScript, then independently developed an interactive 3D visualiser in Bevy.",
+        "tags": [
+          "Rust",
+          "Bevy",
+          "JavaScript"
+        ],
+        "links": [
+          {
+            "label": "World generation project",
+            "url": "https://github.com/Advanced-Programming-Carasau-Project"
+          },
+          {
+            "label": "3D Bevy visualiser",
+            "url": "https://github.com/GitGiulio/visualizer"
+          }
+        ]
+      },
+      {
+        "title": "SpottyThings",
+        "date": "2022 — 2023",
+        "description": "Designed and built a web application for renting, selling and buying goods with two teammates. Worked with a Node.js backend, Vue.js frontend and MongoDB database, with deployment on Railway.",
+        "tags": [
+          "Node.js",
+          "Vue.js",
+          "MongoDB"
+        ],
+        "url": "https://github.com/IS22-TEAM-25"
+      },
+      {
+        "title": "TUM4WORLD",
+        "date": "2023",
+        "description": "Built an association website with three fellow students, with different access privileges for different user roles. Used Java Servlets for the backend and JavaScript and CSS for the frontend.",
+        "tags": [
+          "Java",
+          "JavaScript",
+          "CSS"
+        ],
+        "url": "https://github.com/Team19-WebP"
+      }
     ],
     "educationLabel": "Education",
     "education": [
-      {"degree": "MSc in Computer Engineering", "school": "Aarhus University", "date": "2025 — present", "detail": "Specialisation in AI & Computer Vision."},
-      {"degree": "BSc in Computer Science", "school": "Università degli Studi di Trento", "date": "2021 — 2024", "detail": "Bachelor’s thesis on conditional and unconditional video generation and video–text alignment."}
+      {
+        "degree": "MSc in Computer Engineering",
+        "school": "Aarhus University",
+        "date": "2025 — present",
+        "detail": "Specialisation in AI & Computer Vision."
+      },
+      {
+        "degree": "BSc in Computer Science",
+        "school": "Università degli Studi di Trento",
+        "date": "2021 — 2024",
+        "detail": "Bachelor's thesis on conditional and unconditional video generation and video–text alignment."
+      }
     ],
-    "thesisLabel": "Bachelor’s thesis",
+    "thesisLabel": "Bachelor's thesis",
     "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
     "skillsLabel": "Skills & languages",
     "skillGroups": [
-      {"name": "Programming", "items": "Python, Rust, C/C++, Java, JavaScript, SQL"},
-      {"name": "AI & data", "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"},
-      {"name": "Tools & platforms", "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"}
+      {
+        "name": "Programming",
+        "items": "Python, Rust, C/C++, Java, JavaScript, SQL"
+      },
+      {
+        "name": "AI & data",
+        "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"
+      },
+      {
+        "name": "Tools & platforms",
+        "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"
+      }
     ],
     "languagesLabel": "Languages",
-    "languages": ["Italian · Native", "English · C1", "German · B1", "Danish · A2"],
+    "languages": [
+      "Italian · Native",
+      "English · C1",
+      "German · B1",
+      "Danish · A2"
+    ],
     "footer": "Giulio Lo Cigno · Aarhus, Denmark",
-    "backTop": "Back to top"
+    "backTop": "Back to top",
+    "mediaPlaceholder": "Photo / video"
   },
   "it": {
     "trailLabel": "Scia madreperla",
     "trailOn": "Attiva",
     "trailOff": "Disattiva",
-    "trailHint": "Muovi il mouse. Tieni premuto un pulsante per intensificare la scia.",
+    "trailHint": "..",
     "title": "Giulio Lo Cigno — Sviluppatore Python e studente di ingegneria informatica",
     "description": "Giulio Lo Cigno, sviluppatore Python e studente di laurea magistrale in Computer Engineering ad Aarhus University. Software, IA e visione artificiale.",
     "role": "Sviluppatore Python e studente magistrale",
@@ -69,10 +170,47 @@
     "languageLabel": "Scegli la lingua",
     "portraitAlt": "Ritratto di Giulio Lo Cigno",
     "eyebrow": "Sviluppo software · IA · Visione artificiale",
-    "heading": "Sviluppare software. Esplorare l’intelligenza.",
+    "heading": "Sviluppare software. Esplorare l'intelligenza.",
     "intro": "Sono Giulio, sviluppatore Python e studente di laurea magistrale in Computer Engineering presso Aarhus University, con specializzazione in IA e visione artificiale.",
-    "about": "Presso EIC-SEWPG sviluppo strumenti interni per automatizzare simulazioni, analizzare dati e supportare i flussi di lavoro ingegneristici. Mi interessano il deep learning, l’IA spiegabile e la robotica: unisco la curiosità per i sistemi intelligenti allo sviluppo concreto di software.",
-    "nav": ["Profilo", "Esperienza", "Progetti", "Formazione", "Competenze"],
+    "about": "Presso EIC-SEWPG sviluppo strumenti interni per automatizzare simulazioni, analizzare dati e supportare i flussi di lavoro ingegneristici. Mi interessano il deep learning, l'IA spiegabile e la robotica: unisco la curiosità per i sistemi intelligenti allo sviluppo concreto di software.",
+    "nav": [
+      "Profilo",
+      "Esperienza",
+      "Progetti",
+      "Formazione",
+      "Competenze",
+      "Interessi"
+    ],
+    "interestsLabel": "Interessi personali",
+    "interestsIntro": "Al di fuori del software, mi dedico allo sport, agli scacchi e seguo gli sviluppi dell'esplorazione spaziale.",
+    "interests": [
+      {
+        "title": "Pattinaggio su ghiaccio",
+        "description": "Ho iniziato a pattinare a quattro anni, gareggiando sia nello short track sia nella pista lunga. Da junior ho raggiunto più volte il podio nella mia categoria ai Campionati Italiani.",
+        "media": {
+          "type": "image",
+          "src": "media/ice_skating.jpg",
+          "alt": "Pattinaggio su ghiaccio"
+        }
+      },
+      {
+        "title": "Bouldering",
+        "description": "Da quando mi sono trasferito in Danimarca, ho iniziato a praticare bouldering al posto dello short track. Mi piace soprattutto arrampicare con gli amici.",
+        "media": {
+          "type": "image",
+          "src": "media/bouldering.mp4",
+          "alt": "Bouldering"
+        }
+      },
+      {
+        "title": "Scacchi",
+        "description": "Ho giocato a scacchi per diversi anni e partecipato a tornei, tra cui due edizioni del Trofeo CONI con la squadra del Trentino. Oggi continuo a giocare online nel tempo libero."
+      },
+      {
+        "title": "Razzi e spazio",
+        "description": "Mi affascinano i sistemi di propulsione, la meccanica orbitale e la progettazione dei veicoli spaziali. Mi piace approfondire il funzionamento dei razzi e seguire gli sviluppi dell'esplorazione spaziale."
+      }
+    ],
     "contact": "Contattami",
     "experienceLabel": "Esperienza attuale",
     "experienceTitle": "Sviluppatore Python — impiego studentesco",
@@ -80,33 +218,97 @@
     "company": "European Innovation Center · Shanghai Electric Wind Power Group",
     "experience": [
       "Sviluppo e manutenzione di strumenti Python per eseguire e automatizzare simulazioni su un cluster interno con SLURM.",
-      "Sviluppo di strumenti per l’elaborazione e l’analisi di dati su larga scala, la visualizzazione e la reportistica.",
+      "Sviluppo di strumenti per l'elaborazione e l'analisi di dati su larga scala, la visualizzazione e la reportistica.",
       "Progettazione di meccanismi di autenticazione e controllo degli accessi e di infrastrutture per distribuire applicazioni interne containerizzate."
     ],
     "projectsLabel": "Progetti selezionati",
     "projectLink": "Vedi il progetto",
     "projects": [
-      {"title": "Generazione procedurale di mondi", "date": "2023 — 2024", "description": "Sviluppo in gruppo, con altri tre studenti, di una libreria Rust per generare mondi tramite funzioni di rumore. Ho creato un visualizzatore 2D con Rocket e JavaScript, poi un visualizzatore 3D interattivo in Bevy in autonomia.", "tags": ["Rust", "Bevy", "JavaScript"], "url": "https://github.com/Advanced-Programming-Carasau-Project"},
-      {"title": "SpottyThings", "date": "2022 — 2023", "description": "Progettazione e sviluppo, con altri due studenti, di un’applicazione web per noleggiare, vendere e acquistare beni. Backend in Node.js, frontend in Vue.js e database MongoDB, con distribuzione su Railway.", "tags": ["Node.js", "Vue.js", "MongoDB"], "url": "https://github.com/IS22-TEAM-25"},
-      {"title": "TUM4WORLD", "date": "2023", "description": "Realizzazione, con altri tre studenti, di un sito per un’associazione con privilegi di accesso differenziati per ruolo. Backend con Java Servlet e frontend con JavaScript e CSS.", "tags": ["Java", "JavaScript", "CSS"], "url": "https://github.com/Team19-WebP"}
+      {
+        "title": "Generazione procedurale di mondi",
+        "date": "2023 — 2024",
+        "description": "Sviluppo in gruppo, con altri tre studenti, di una libreria Rust per generare mondi tramite funzioni di rumore. Ho creato un visualizzatore 2D con Rocket e JavaScript, poi un visualizzatore 3D interattivo in Bevy in autonomia.",
+        "tags": [
+          "Rust",
+          "Bevy",
+          "JavaScript"
+        ],
+        "links": [
+          {
+            "label": "Progetto generazione mondi",
+            "url": "https://github.com/Advanced-Programming-Carasau-Project"
+          },
+          {
+            "label": "Visualizzatore 3D Bevy",
+            "url": "https://github.com/GitGiulio/visualizer"
+          }
+        ]
+      },
+      {
+        "title": "SpottyThings",
+        "date": "2022 — 2023",
+        "description": "Progettazione e sviluppo, con altri due studenti, di un'applicazione web per noleggiare, vendere e acquistare beni. Backend in Node.js, frontend in Vue.js e database MongoDB, con distribuzione su Railway.",
+        "tags": [
+          "Node.js",
+          "Vue.js",
+          "MongoDB"
+        ],
+        "url": "https://github.com/IS22-TEAM-25"
+      },
+      {
+        "title": "TUM4WORLD",
+        "date": "2023",
+        "description": "Realizzazione, con altri tre studenti, di un sito per un'associazione con privilegi di accesso differenziati per ruolo. Backend con Java Servlet e frontend con JavaScript e CSS.",
+        "tags": [
+          "Java",
+          "JavaScript",
+          "CSS"
+        ],
+        "url": "https://github.com/Team19-WebP"
+      }
     ],
     "educationLabel": "Formazione",
     "education": [
-      {"degree": "Laurea magistrale in Computer Engineering (MSc)", "school": "Aarhus University", "date": "2025 — oggi", "detail": "Specializzazione in IA e visione artificiale."},
-      {"degree": "Laurea in Informatica (BSc)", "school": "Università degli Studi di Trento", "date": "2021 — 2024", "detail": "Tesi sulla generazione video condizionata e non condizionata e sull’allineamento tra video e testo."}
+      {
+        "degree": "Laurea magistrale in Computer Engineering (MSc)",
+        "school": "Aarhus University",
+        "date": "2025 — oggi",
+        "detail": "Specializzazione in IA e visione artificiale."
+      },
+      {
+        "degree": "Laurea in Informatica (BSc)",
+        "school": "Università degli Studi di Trento",
+        "date": "2021 — 2024",
+        "detail": "Tesi sulla generazione video condizionata e non condizionata e sull'allineamento tra video e testo."
+      }
     ],
     "thesisLabel": "Tesi di laurea",
     "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
     "skillsLabel": "Competenze e lingue",
     "skillGroups": [
-      {"name": "Programmazione", "items": "Python, Rust, C/C++, Java, JavaScript, SQL"},
-      {"name": "IA e dati", "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"},
-      {"name": "Strumenti e piattaforme", "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"}
+      {
+        "name": "Programmazione",
+        "items": "Python, Rust, C/C++, Java, JavaScript, SQL"
+      },
+      {
+        "name": "IA e dati",
+        "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"
+      },
+      {
+        "name": "Strumenti e piattaforme",
+        "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"
+      }
     ],
     "languagesLabel": "Lingue",
-    "languages": ["Italiano · Madrelingua", "Inglese · C1", "Tedesco · B1", "Danese · A2"],
+    "languages": [
+      "Italiano · Madrelingua",
+      "Inglese · C1",
+      "Tedesco · B1",
+      "Danese · A2"
+    ],
     "footer": "Giulio Lo Cigno · Aarhus, Danimarca",
-    "backTop": "Torna all’inizio"
+    "backTop": "Torna all'inizio",
+    "mediaPlaceholder": "Foto / video"
   },
   "da": {
     "trailLabel": "Perlemorsspor",
@@ -125,7 +327,44 @@
     "heading": "Udvikler software. Udforsker intelligens.",
     "intro": "Jeg hedder Giulio og er Python-udvikler og kandidatstuderende i Computer Engineering på Aarhus Universitet med specialisering i AI og computer vision.",
     "about": "Hos EIC-SEWPG udvikler jeg interne værktøjer til automatisering af simuleringer, dataanalyse og tekniske arbejdsgange. Mine interesser spænder over deep learning, forklarlig AI og robotteknologi — jeg kombinerer min interesse for intelligente systemer med praktisk softwareudvikling.",
-    "nav": ["Om mig", "Erfaring", "Projekter", "Uddannelse", "Kompetencer"],
+    "nav": [
+      "Om mig",
+      "Erfaring",
+      "Projekter",
+      "Uddannelse",
+      "Kompetencer",
+      "Interesser"
+    ],
+    "interestsLabel": "Personlige interesser",
+    "interestsIntro": "Ved siden af software interesserer jeg mig for sport og skak og følger udviklingen inden for rumfart.",
+    "interests": [
+      {
+        "title": "Skøjteløb",
+        "description": "Jeg begyndte at løbe på skøjter som fireårig og konkurrerede i både shorttrack og langbaneløb. Som junior opnåede jeg flere podieplaceringer i min kategori ved de italienske mesterskaber.",
+        "media": {
+          "type": "image",
+          "src": "media/ice_skating.jpg",
+          "alt": "Skøjteløb"
+        }
+      },
+      {
+        "title": "Bouldering",
+        "description": "Efter at være flyttet til Danmark er jeg begyndt at dyrke bouldering i stedet for shorttrack. Jeg nyder især at klatre sammen med venner.",
+        "media": {
+          "type": "image",
+          "src": "media/bouldering.mp4",
+          "alt": "Bouldering"
+        }
+      },
+      {
+        "title": "Skak",
+        "description": "Jeg spillede skak i flere år og deltog i turneringer, blandt andet to udgaver af Trofeo CONI med holdet fra Trentino. I dag spiller jeg online i min fritid."
+      },
+      {
+        "title": "Raketter og rumfart",
+        "description": "Jeg er fascineret af fremdriftssystemer, banemekanik og design af rumfartøjer. Jeg nyder at lære om, hvordan raketter fungerer, og følge udviklingen inden for rumforskning."
+      }
+    ],
     "contact": "Kontakt mig",
     "experienceLabel": "Nuværende arbejde",
     "experienceTitle": "Studentermedhjælper — Python-udvikling",
@@ -139,26 +378,90 @@
     "projectsLabel": "Udvalgte projekter",
     "projectLink": "Se projektet",
     "projects": [
-      {"title": "Procedurel verdensgenerering", "date": "2023 — 2024", "description": "Udviklede et Rust-bibliotek til støjbaseret verdensgenerering sammen med tre medstuderende. Byggede en 2D-visualisering med Rocket og JavaScript og udviklede derefter selv en interaktiv 3D-visualisering i Bevy.", "tags": ["Rust", "Bevy", "JavaScript"], "url": "https://github.com/Advanced-Programming-Carasau-Project"},
-      {"title": "SpottyThings", "date": "2022 — 2023", "description": "Designede og byggede en webapplikation til udlejning, salg og køb af varer med to medstuderende. Arbejdede med Node.js, Vue.js og MongoDB og udrullede applikationen på Railway.", "tags": ["Node.js", "Vue.js", "MongoDB"], "url": "https://github.com/IS22-TEAM-25"},
-      {"title": "TUM4WORLD", "date": "2023", "description": "Byggede et foreningswebsted med tre medstuderende med forskellige adgangsrettigheder for forskellige brugerroller. Brugte Java Servlets til backend og JavaScript og CSS til frontend.", "tags": ["Java", "JavaScript", "CSS"], "url": "https://github.com/Team19-WebP"}
+      {
+        "title": "Procedurel verdensgenerering",
+        "date": "2023 — 2024",
+        "description": "Udviklede et Rust-bibliotek til støjbaseret verdensgenerering sammen med tre medstuderende. Byggede en 2D-visualisering med Rocket og JavaScript og udviklede derefter selv en interaktiv 3D-visualisering i Bevy.",
+        "tags": [
+          "Rust",
+          "Bevy",
+          "JavaScript"
+        ],
+        "links": [
+          {
+            "label": "Verdensgenereringsprojekt",
+            "url": "https://github.com/Advanced-Programming-Carasau-Project"
+          },
+          {
+            "label": "3D-visualisering med Bevy",
+            "url": "https://github.com/GitGiulio/visualizer"
+          }
+        ]
+      },
+      {
+        "title": "SpottyThings",
+        "date": "2022 — 2023",
+        "description": "Designede og byggede en webapplikation til udlejning, salg og køb af varer med to medstuderende. Arbejdede med Node.js, Vue.js og MongoDB og udrullede applikationen på Railway.",
+        "tags": [
+          "Node.js",
+          "Vue.js",
+          "MongoDB"
+        ],
+        "url": "https://github.com/IS22-TEAM-25"
+      },
+      {
+        "title": "TUM4WORLD",
+        "date": "2023",
+        "description": "Byggede et foreningswebsted med tre medstuderende med forskellige adgangsrettigheder for forskellige brugerroller. Brugte Java Servlets til backend og JavaScript og CSS til frontend.",
+        "tags": [
+          "Java",
+          "JavaScript",
+          "CSS"
+        ],
+        "url": "https://github.com/Team19-WebP"
+      }
     ],
     "educationLabel": "Uddannelse",
     "education": [
-      {"degree": "Kandidatuddannelse i Computer Engineering (MSc)", "school": "Aarhus Universitet", "date": "2025 — nu", "detail": "Specialisering i AI og computer vision."},
-      {"degree": "Bachelor i datalogi (BSc)", "school": "Università degli Studi di Trento", "date": "2021 — 2024", "detail": "Bachelorprojekt om betinget og ubetinget videogenerering og overensstemmelse mellem video og tekst."}
+      {
+        "degree": "Kandidatuddannelse i Computer Engineering (MSc)",
+        "school": "Aarhus Universitet",
+        "date": "2025 — nu",
+        "detail": "Specialisering i AI og computer vision."
+      },
+      {
+        "degree": "Bachelor i datalogi (BSc)",
+        "school": "Università degli Studi di Trento",
+        "date": "2021 — 2024",
+        "detail": "Bachelorprojekt om betinget og ubetinget videogenerering og overensstemmelse mellem video og tekst."
+      }
     ],
     "thesisLabel": "Bachelorprojekt",
     "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
     "skillsLabel": "Kompetencer og sprog",
     "skillGroups": [
-      {"name": "Programmering", "items": "Python, Rust, C/C++, Java, JavaScript, SQL"},
-      {"name": "AI og data", "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"},
-      {"name": "Værktøjer og platforme", "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"}
+      {
+        "name": "Programmering",
+        "items": "Python, Rust, C/C++, Java, JavaScript, SQL"
+      },
+      {
+        "name": "AI og data",
+        "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"
+      },
+      {
+        "name": "Værktøjer og platforme",
+        "items": "FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM"
+      }
     ],
     "languagesLabel": "Sprog",
-    "languages": ["Italiensk · Modersmål", "Engelsk · C1", "Tysk · B1", "Dansk · A2"],
+    "languages": [
+      "Italiensk · Modersmål",
+      "Engelsk · C1",
+      "Tysk · B1",
+      "Dansk · A2"
+    ],
     "footer": "Giulio Lo Cigno · Aarhus, Danmark",
-    "backTop": "Til toppen"
+    "backTop": "Til toppen",
+    "mediaPlaceholder": "Foto / video"
   }
 }

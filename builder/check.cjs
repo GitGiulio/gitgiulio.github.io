@@ -4,7 +4,8 @@ const assert = require('node:assert/strict');
 const { pathToFileURL } = require('node:url');
 const path = require('node:path');
 const fs = require('node:fs');
-const sections = ['about', 'experience', 'projects', 'education', 'skills'];
+const content = JSON.parse(fs.readFileSync(path.join(__dirname, 'content.json'), 'utf8'));
+const sections = ['about', 'experience', 'projects', 'education', 'skills', 'interests'];
 const filename = (lang, section) => section === 'about'
   ? (lang === 'en' ? 'index.html' : `${lang}.html`)
   : `${section}${lang === 'en' ? '' : `-${lang}`}.html`;
@@ -27,9 +28,32 @@ const filename = (lang, section) => section === 'about'
       assert.equal(await page.locator('nav.languages a[aria-current="page"]').getAttribute('lang'), lang);
       assert.equal(await page.locator('main > section').count(), 1, 'Each page must contain only its own section');
       assert.equal(await page.locator('main > section').getAttribute('id'), section);
-      assert.equal(await page.locator('header nav.sections a').count(), 5);
+      assert.equal(await page.locator('header nav.sections a').count(), 6);
+      if (section === 'projects') {
+        for (const [index, project] of content[lang].projects.entries()) {
+          const links = page.locator('article.project').nth(index).locator('.project-link');
+          const expected = project.links || [{ url: project.url, label: content[lang].projectLink }];
+          assert.equal(await links.count(), expected.length);
+          for (const [i, link] of expected.entries()) {
+            assert.equal(await links.nth(i).getAttribute('href'), link.url);
+            assert.ok((await links.nth(i).textContent()).startsWith(link.label));
+          }
+        }
+      }
+      if (section === 'interests') {
+        assert.equal(await page.locator('main article').count(), content[lang].interests.length);
+        assert.ok((await page.title()).includes(content[lang].nav[5]));
+        const placeholders = content[lang].interests.filter(item => item.media && !item.media.src.trim());
+        assert.equal(await page.locator('.media-placeholder').count(), placeholders.length);
+        for (const slot of await page.locator('.media-placeholder').all()) {
+          assert.ok((await slot.textContent()).includes(content[lang].mediaPlaceholder));
+        }
+      }
       assert.equal(await page.locator('nav.sections a[aria-current="page"]').getAttribute('href'), file);
-      assert.equal(await page.locator('img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth > 0)), true);
+      for (const img of await page.locator('img').all()) {
+        await img.scrollIntoViewIfNeeded();
+        await img.evaluate(element => element.decode());
+      }
       assert.equal(await page.locator('a[href$=".pdf"]').count(), 0);
       for (const width of [360, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
@@ -103,8 +127,30 @@ const filename = (lang, section) => section === 'about'
     await page.screenshot({ path: path.join(__dirname, 'tmp/desktop.png'), fullPage: true });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.screenshot({ path: path.join(__dirname, 'tmp/mobile.png'), fullPage: true });
+    await page.goto(new URL('projects-it.html', home).href);
+    await page.screenshot({ path: path.join(__dirname, 'tmp/projects-mobile.png'), fullPage: true });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.screenshot({ path: path.join(__dirname, 'tmp/projects-desktop.png'), fullPage: true });
+    await page.goto(new URL('interests.html', home).href);
+    await page.screenshot({ path: path.join(__dirname, 'tmp/interests-desktop.png'), fullPage: true });
+    await page.getByRole('link', { name: 'Italiano', exact: true }).click();
+    assert.equal(new URL(page.url()).pathname.split('/').pop(), 'interests-it.html');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.screenshot({ path: path.join(__dirname, 'tmp/interests-mobile.png'), fullPage: true });
+    await page.setViewportSize({ width: 720, height: 900 });
+    await page.evaluate(() => document.documentElement.style.fontSize = '200%');
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Enlarged text must reflow');
+    const noJS = await browser.newContext({ javaScriptEnabled: false });
+    const plain = await noJS.newPage();
+    await plain.goto(new URL('projects-it.html', home).href);
+    await plain.locator('nav.sections a[href="interests-it.html"]').click();
+    await plain.getByRole('link', { name: 'Dansk', exact: true }).click();
+    assert.equal(await plain.locator('main > section').getAttribute('id'), 'interests');
+    assert.equal(await plain.locator('html').getAttribute('lang'), 'da');
+    assert.equal(await plain.locator('.effect-control').isVisible(), false);
+    await noJS.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: 15 standalone pages, three languages, responsive layout, section-preserving language links, browser history, assets, keyboard toggle, saved preference, mouse buttons and reduced motion.');
+    console.log('PASS: 18 standalone pages including personal interests, three languages, responsive layout, section-preserving language links, browser history, assets, keyboard toggle, saved preference, mouse buttons and reduced motion.');
   } finally {
     await browser.close();
   }

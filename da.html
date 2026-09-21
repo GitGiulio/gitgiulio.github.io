@@ -12,14 +12,15 @@
   <meta property="og:type" content="website">
   <link rel="alternate" hreflang="en" href="index.html"><link rel="alternate" hreflang="it" href="it.html"><link rel="alternate" hreflang="da" href="da.html"><link rel="alternate" hreflang="x-default" href="index.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="trail.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=1bf155fc6400">
+  <script src="trail.js?v=b4d93bb7bc09" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Gå til indhold</a>
   <canvas id="pearl-trail" aria-hidden="true"></canvas>
   <header class="topbar">
-    <a class="wordmark" href="#top" aria-label="Giulio Lo Cigno">GLC<span aria-hidden="true">.</span></a>
+    <a class="wordmark" href="da.html" aria-label="Giulio Lo Cigno">GLC<span aria-hidden="true">.</span></a>
+    <nav class="sections" aria-label="Afsnit"><a href="da.html" aria-current="page">Om mig</a><a href="experience-da.html">Erfaring</a><a href="projects-da.html">Projekter</a><a href="education-da.html">Uddannelse</a><a href="skills-da.html">Kompetencer</a><a href="interests-da.html">Interesser</a></nav>
     <nav class="languages" aria-label="Vælg sprog"><a href="index.html" lang="en" hreflang="en">English</a><a href="it.html" lang="it" hreflang="it">Italiano</a><a href="da.html" lang="da" hreflang="da" aria-current="page">Dansk</a></nav>
   </header>
   <div class="layout">
@@ -29,40 +30,16 @@
       <p class="role">Python-udvikler og kandidatstuderende</p>
       <p class="location"><span aria-hidden="true">⌖</span> Aarhus, Danmark</p>
       <a class="contact-button" href="mailto:giulio.locigno@gmail.com">Kontakt mig <span aria-hidden="true">↗</span></a>
-      <nav class="sections" aria-label="Afsnit"><a href="#about"><span aria-hidden="true">01</span>Om mig</a><a href="#experience"><span aria-hidden="true">02</span>Erfaring</a><a href="#projects"><span aria-hidden="true">03</span>Projekter</a><a href="#education"><span aria-hidden="true">04</span>Uddannelse</a><a href="#skills"><span aria-hidden="true">05</span>Kompetencer</a></nav>
       <div class="effect-control" hidden>
         <button id="trail-toggle" type="button" aria-pressed="false" data-on="Til" data-off="Fra" aria-describedby="trail-hint"><span class="pearl-dot" aria-hidden="true"></span>Perlemorsspor<span class="toggle-state">Fra</span></button>
         <p id="trail-hint">Bevæg musen. Hold en af museknapperne nede for at forstærke sporet.</p>
       </div>
     </aside>
     <main id="main" tabindex="-1">
-      <section id="about" class="intro-section" aria-labelledby="intro-title">
-        <p class="eyebrow">Softwareudvikling · AI · Computer vision</p>
-        <h1 id="intro-title">Udvikler software. Udforsker intelligens.</h1>
-        <p class="lead">Jeg hedder Giulio og er Python-udvikler og kandidatstuderende i Computer Engineering på Aarhus Universitet med specialisering i AI og computer vision.</p>
-        <p>Hos EIC-SEWPG udvikler jeg interne værktøjer til automatisering af simuleringer, dataanalyse og tekniske arbejdsgange. Mine interesser spænder over deep learning, forklarlig AI og robotteknologi — jeg kombinerer min interesse for intelligente systemer med praktisk softwareudvikling.</p>
-        <div class="intro-rule" aria-hidden="true"><span>01 — 05</span><span>GLC / PORTFOLIO</span></div>
-      </section>
-      <section id="experience" aria-labelledby="experience-title">
-        <h2 id="experience-title"><span aria-hidden="true">02</span>Nuværende arbejde</h2>
-        <article class="work-entry">
-          <div class="entry-top"><h3>Studentermedhjælper — Python-udvikling</h3><span class="date">Sep 2025 — nu</span></div>
-          <p class="company">European Innovation Center · Shanghai Electric Wind Power Group <span class="acronym">(EIC-SEWPG)</span></p>
-          <ul class="work-list"><li>Udvikler og vedligeholder Python-værktøjer til afvikling og automatisering af simuleringer på en intern SLURM-klynge.</li><li>Udvikler værktøjer til databehandling og analyse i stor skala samt visualisering og rapportering.</li><li>Designer mekanismer til autentifikation og adgangskontrol samt infrastruktur til udrulning af containerbaserede interne applikationer.</li></ul>
-          <ul class="tags"><li>Python</li><li>SLURM</li><li>Docker</li></ul>
-        </article>
-      </section>
-      <section id="projects" aria-labelledby="projects-title">
-        <h2 id="projects-title"><span aria-hidden="true">03</span>Udvalgte projekter</h2><article class="project"><div class="entry-top"><h3>Procedurel verdensgenerering</h3><span class="date">2023 — 2024</span></div><p>Udviklede et Rust-bibliotek til støjbaseret verdensgenerering sammen med tre medstuderende. Byggede en 2D-visualisering med Rocket og JavaScript og udviklede derefter selv en interaktiv 3D-visualisering i Bevy.</p><div class="project-bottom"><ul class="tags"><li>Rust</li><li>Bevy</li><li>JavaScript</li></ul><a class="project-link" href="https://github.com/Advanced-Programming-Carasau-Project">Se projektet<span class="sr-only">: Procedurel verdensgenerering</span> <span aria-hidden="true">↗</span></a></div></article><article class="project"><div class="entry-top"><h3>SpottyThings</h3><span class="date">2022 — 2023</span></div><p>Designede og byggede en webapplikation til udlejning, salg og køb af varer med to medstuderende. Arbejdede med Node.js, Vue.js og MongoDB og udrullede applikationen på Railway.</p><div class="project-bottom"><ul class="tags"><li>Node.js</li><li>Vue.js</li><li>MongoDB</li></ul><a class="project-link" href="https://github.com/IS22-TEAM-25">Se projektet<span class="sr-only">: SpottyThings</span> <span aria-hidden="true">↗</span></a></div></article><article class="project"><div class="entry-top"><h3>TUM4WORLD</h3><span class="date">2023</span></div><p>Byggede et foreningswebsted med tre medstuderende med forskellige adgangsrettigheder for forskellige brugerroller. Brugte Java Servlets til backend og JavaScript og CSS til frontend.</p><div class="project-bottom"><ul class="tags"><li>Java</li><li>JavaScript</li><li>CSS</li></ul><a class="project-link" href="https://github.com/Team19-WebP">Se projektet<span class="sr-only">: TUM4WORLD</span> <span aria-hidden="true">↗</span></a></div></article>
-      </section>
-      <section id="education" aria-labelledby="education-title">
-        <h2 id="education-title"><span aria-hidden="true">04</span>Uddannelse</h2><article class="education-entry"><span class="date">2025 — nu</span><div><h3>Kandidatuddannelse i Computer Engineering (MSc)</h3><p class="school">Aarhus Universitet</p><p>Specialisering i AI og computer vision.</p></div></article><article class="education-entry"><span class="date">2021 — 2024</span><div><h3>Bachelor i datalogi (BSc)</h3><p class="school">Università degli Studi di Trento</p><p>Bachelorprojekt om betinget og ubetinget videogenerering og overensstemmelse mellem video og tekst.</p></div></article>
-        <div class="thesis"><p class="eyebrow">Bachelorprojekt</p><p lang="en">Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment</p></div>
-      </section>
-      <section id="skills" aria-labelledby="skills-title">
-        <h2 id="skills-title"><span aria-hidden="true">05</span>Kompetencer og sprog</h2>
-        <dl class="skills"><div><dt>Programmering</dt><dd>Python, Rust, C/C++, Java, JavaScript, SQL</dd></div><div><dt>AI og data</dt><dd>TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME</dd></div><div><dt>Værktøjer og platforme</dt><dd>FastAPI, Streamlit, Plotly, Git, Docker, Linux, SLURM</dd></div></dl><h3 class="language-heading">Sprog</h3><ul class="spoken"><li>Italiensk · Modersmål</li><li>Engelsk · C1</li><li>Tysk · B1</li><li>Dansk · A2</li></ul>
-      </section>
+      <section id="about" class="intro-section" aria-labelledby="page-title"><p class="eyebrow">Softwareudvikling · AI · Computer vision</p>
+        <h1 id="page-title">Udvikler software. Udforsker intelligens.</h1>
+        <p class="lead">Jeg hedder Giulio og er Python-udvikler og kandidatstuderende i Computer Engineering på Aarhus Universitet med specialisering i AI og computer vision.</p><p>Hos EIC-SEWPG udvikler jeg interne værktøjer til automatisering af simuleringer, dataanalyse og tekniske arbejdsgange. Mine interesser spænder over deep learning, forklarlig AI og robotteknologi — jeg kombinerer min interesse for intelligente systemer med praktisk softwareudvikling.</p>
+        <div class="intro-rule" aria-hidden="true"><span>01 / 06</span><span>GLC / PORTFOLIO</span></div></section>
       <footer><p>Giulio Lo Cigno · Aarhus, Danmark</p><a href="#top">Til toppen ↑</a></footer>
     </main>
   </div>

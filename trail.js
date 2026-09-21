@@ -16,13 +16,14 @@
   let lastEmission = 0;
   let width = 0;
   let height = 0;
+  let scale = 1;
   let sequence = 0;
   const lifetime = 1350;
 
   function resize() {
     width = innerWidth;
     height = innerHeight;
-    const scale = Math.min(devicePixelRatio || 1, 2);
+    scale = Math.min(devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
     context.setTransform(scale, 0, 0, scale, 0, 0);
@@ -45,9 +46,17 @@
 
   function emit(x, y, strong, now) {
     const angle = now * .007 + sequence++ * 2.4;
+    const hue = (strong ? angle * 180 / Math.PI : now * .05 + sequence * 5) % 360;
+    // Reuse the exact gradient at any size; only its transform and opacity animate.
+    const glow = context.createRadialGradient(0, 0, 0, 0, 0, 1);
+    glow.addColorStop(0, `hsla(${hue}, 72%, 84%, .3)`);
+    glow.addColorStop(.25, `hsla(${hue + 40}, 80%, 78%, .22)`);
+    glow.addColorStop(.6, `hsla(${hue + 100}, 80%, 65%, .09)`);
+    glow.addColorStop(1, `hsla(${hue + 160}, 80%, 65%, 0)`);
+    const ribbons = [-1, 0, 1].map(ribbon => `hsl(${hue + ribbon * 70}, 70%, 85%)`);
     points.push({ x: x + (strong ? Math.cos(angle) * 14 : 0),
       y: y + (strong ? Math.sin(angle) * 14 : 0), born: now,
-      hue: (strong ? angle * 180 / Math.PI : now * .05 + sequence * 5) % 360,
+      glow, ribbons,
       radius: strong ? 30 : 19, dx: Math.cos(angle) * (strong ? 52 : 7),
       dy: Math.sin(angle) * (strong ? 52 : 7), strong });
     // ponytail: bounded to 180 particles; use WebGL only if a denser effect is needed.
@@ -62,7 +71,7 @@
       lastEmission = now;
     }
     context.clearRect(0, 0, width, height);
-    context.globalCompositeOperation = 'lighter';
+    // Normal alpha blending keeps overlapping pastel colors from adding up to white.
     points = points.filter(point => now - point.born < lifetime);
     let previous;
     for (const point of points) {
@@ -71,29 +80,29 @@
       const x = point.x + point.dx * age;
       const y = point.y + point.dy * age;
       const radius = point.radius * (1 + age * 1.4);
-      const glow = context.createRadialGradient(x, y, 0, x, y, radius);
-      glow.addColorStop(0, `hsla(${point.hue}, 35%, 94%, ${alpha * .22})`);
-      glow.addColorStop(.25, `hsla(${point.hue + 40}, 80%, 78%, ${alpha * .18})`);
-      glow.addColorStop(.6, `hsla(${point.hue + 100}, 80%, 65%, ${alpha * .07})`);
-      glow.addColorStop(1, `hsla(${point.hue + 160}, 80%, 65%, 0)`);
-      context.fillStyle = glow;
+      context.globalAlpha = alpha;
+      context.setTransform(scale * radius, 0, 0, scale * radius, scale * x, scale * y);
+      context.fillStyle = point.glow;
       context.beginPath();
-      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.arc(0, 0, 1, 0, Math.PI * 2);
       context.fill();
+      context.setTransform(scale, 0, 0, scale, 0, 0);
       if (previous && Math.hypot(x - previous.x, y - previous.y) < 90) {
+        context.globalAlpha = alpha * .22;
+        context.lineWidth = point.strong ? 2 : 1;
+        const wave = Math.sin(age * 5 + now * .0015) * 8;
         for (let ribbon = -1; ribbon <= 1; ribbon++) {
-          const offset = Math.sin(age * 5 + now * .0015) * 8 * ribbon;
+          const offset = wave * ribbon;
           context.beginPath();
           context.moveTo(previous.x, previous.y + offset);
           context.quadraticCurveTo((previous.x + x) / 2, y + offset * 2, x, y + offset);
-          context.lineWidth = point.strong ? 2 : 1;
-          context.strokeStyle = `hsla(${point.hue + ribbon * 70}, 70%, 85%, ${alpha * .22})`;
+          context.strokeStyle = point.ribbons[ribbon + 1];
           context.stroke();
         }
       }
       previous = { x, y };
     }
-    context.globalCompositeOperation = 'source-over';
+    context.globalAlpha = 1;
     frame = points.length || pressed ? requestAnimationFrame(draw) : 0;
   }
 
