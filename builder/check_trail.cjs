@@ -1,10 +1,11 @@
-// Focused Canvas regression check: node check_trail.cjs [path/to/trail.js --baseline]
+// Focused Canvas regression check: node builder/check_trail.cjs [path/to/trail.js --baseline]
 const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const source = fs.readFileSync(process.argv[2] || 'site/trail.js', 'utf8');
+const source = fs.readFileSync(process.argv[2] || path.join(__dirname, '../site/trail.js'), 'utf8');
 const baseline = process.argv.includes('--baseline');
+fs.mkdirSync(path.join(__dirname, 'tmp'), { recursive: true });
 
 (async () => {
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
@@ -74,7 +75,7 @@ const baseline = process.argv.includes('--baseline');
           assert.equal(result.white, 0, 'Overlapping pearls must not wash out to white');
           assert.ok(result.gradients < 1000, 'Build gradients once per particle, not every frame');
         }
-        if (buttons === 1 && dpr === 1) await page.screenshot({ path: path.join('tmp', baseline ? 'pearl-before.png' : 'pearl-after.png') });
+        if (buttons === 1 && dpr === 1) await page.screenshot({ path: path.join(__dirname, 'tmp', baseline ? 'pearl-before.png' : 'pearl-after.png') });
         await page.evaluate(() => {
           document.body.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, buttons: 0 }));
           for (let frame = 0; frame < 90; frame++) clock.step();

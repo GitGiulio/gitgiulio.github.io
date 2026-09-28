@@ -1,14 +1,19 @@
 // Run with Node and Playwright installed. The website itself has no dependencies.
 const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
-const { pathToFileURL } = require('node:url');
+const { fileURLToPath, pathToFileURL } = require('node:url');
 const path = require('node:path');
 const fs = require('node:fs');
+fs.mkdirSync(path.join(__dirname, 'tmp'), { recursive: true });
 const content = JSON.parse(fs.readFileSync(path.join(__dirname, 'content.json'), 'utf8'));
 const sections = ['about', 'experience', 'projects', 'education', 'skills', 'interests'];
 const filename = (lang, section) => section === 'about'
   ? (lang === 'en' ? 'index.html' : `${lang}.html`)
   : `${section}${lang === 'en' ? '' : `-${lang}`}.html`;
+const output = (lang, section) => {
+  const file = filename(lang, section);
+  return file === 'index.html' ? file : `site/${file}`;
+};
 
 (async () => {
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
@@ -16,14 +21,16 @@ const filename = (lang, section) => section === 'about'
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  const home = pathToFileURL(path.join(__dirname, 'site/index.html')).href;
+  const home = pathToFileURL(path.join(__dirname, '../index.html')).href;
   try {
     for (const lang of ['en', 'it', 'da']) {
       for (const section of sections) {
-      const file = filename(lang, section);
+      const file = output(lang, section);
       await page.goto(new URL(file, home).href);
       assert.equal(await page.locator('html').getAttribute('lang'), lang);
       assert.equal(await page.locator('h1').count(), 1);
+      assert.equal(await page.locator('.effect-control > *').count(), 1, 'The effect control contains only its button');
+      assert.equal(await page.locator('#trail-toggle').getAttribute('aria-describedby'), null);
       assert.equal(await page.locator('nav.languages a').count(), 3);
       assert.equal(await page.locator('nav.languages a[aria-current="page"]').getAttribute('lang'), lang);
       assert.equal(await page.locator('main > section').count(), 1, 'Each page must contain only its own section');
@@ -41,7 +48,8 @@ const filename = (lang, section) => section === 'about'
         }
       }
       if (section === 'interests') {
-        assert.equal(await page.locator('main article').count(), content[lang].interests.length);
+        assert.equal(await page.locator('main article').count(), content[lang].interests.length + 1);
+        assert.equal(await page.locator('.travel-callout .project-link').getAttribute('href'), filename(lang, 'travel'));
         assert.ok((await page.title()).includes(content[lang].nav[5]));
         const placeholders = content[lang].interests.filter(item => item.media && !item.media.src.trim());
         assert.equal(await page.locator('.media-placeholder').count(), placeholders.length);
@@ -49,7 +57,7 @@ const filename = (lang, section) => section === 'about'
           assert.ok((await slot.textContent()).includes(content[lang].mediaPlaceholder));
         }
       }
-      assert.equal(await page.locator('nav.sections a[aria-current="page"]').getAttribute('href'), file);
+      assert.equal(await page.locator('nav.sections a[aria-current="page"]').getAttribute('href'), path.basename(file));
       for (const img of await page.locator('img').all()) {
         await img.scrollIntoViewIfNeeded();
         await img.evaluate(element => element.decode());
@@ -61,14 +69,14 @@ const filename = (lang, section) => section === 'about'
       }
       for (const link of await page.locator('nav.sections a').all()) {
         const href = await link.getAttribute('href');
-        assert.ok(fs.existsSync(path.join(__dirname, 'site', href)), `Missing page ${href}`);
+        assert.ok(fs.existsSync(fileURLToPath(new URL(href, page.url()))), `Missing page ${href}`);
       }
       for (const link of await page.locator('nav.languages a').all()) {
-        assert.equal(await link.getAttribute('href'), filename(await link.getAttribute('lang'), section));
+        assert.ok(fs.existsSync(fileURLToPath(new URL(await link.getAttribute('href'), page.url()))));
       }
       }
     }
-    await page.goto(new URL('projects.html', home).href);
+    await page.goto(new URL('site/projects.html', home).href);
     await page.getByRole('link', { name: 'Italiano', exact: true }).click();
     assert.equal(new URL(page.url()).pathname.split('/').pop(), 'projects-it.html');
     await page.locator('nav.sections a[href="education-it.html"]').click();
@@ -127,11 +135,34 @@ const filename = (lang, section) => section === 'about'
     await page.screenshot({ path: path.join(__dirname, 'tmp/desktop.png'), fullPage: true });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.screenshot({ path: path.join(__dirname, 'tmp/mobile.png'), fullPage: true });
-    await page.goto(new URL('projects-it.html', home).href);
+    await page.goto(new URL('site/projects-it.html', home).href);
     await page.screenshot({ path: path.join(__dirname, 'tmp/projects-mobile.png'), fullPage: true });
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.screenshot({ path: path.join(__dirname, 'tmp/projects-desktop.png'), fullPage: true });
-    await page.goto(new URL('interests.html', home).href);
+    await page.goto(new URL('site/interests.html', home).href);
+    await page.locator('.travel-callout .project-link').click();
+    assert.equal(new URL(page.url()).pathname.split('/').pop(), 'travel.html');
+    assert.equal(await page.locator('#travel-map').count(), 1);
+    await page.waitForSelector('#travel-map[data-ready="true"]');
+    assert.equal(await page.locator('[data-country="Italy"]').getAttribute('data-visited'), 'born');
+    await page.locator('[data-country="Italy"]').focus();
+    assert.match(await page.locator('#map-status').innerText(), /Italy.*born/);
+    await page.locator('[data-country="Denmark"]').focus();
+    assert.match(await page.locator('#map-status').innerText(), /Denmark.*2025 \(living\)/);
+    const mapBox = await page.locator('#travel-map').boundingBox();
+    const mapTransform = () => page.locator('#map-viewport').getAttribute('transform');
+    await page.mouse.move(mapBox.x + mapBox.width / 2, mapBox.y + mapBox.height / 2);
+    const beforeZoom = await mapTransform();
+    await page.mouse.wheel(0, -450);
+    await page.waitForTimeout(50);
+    const afterZoom = await mapTransform();
+    assert.notEqual(afterZoom, beforeZoom, 'Wheel zoom must transform the map');
+    await page.mouse.down();
+    await page.mouse.move(mapBox.x + mapBox.width / 2 + 90, mapBox.y + mapBox.height / 2 + 40, { steps: 6 });
+    await page.mouse.up();
+    assert.notEqual(await mapTransform(), afterZoom, 'Dragging must pan the map');
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Travel page must not overflow');
+    await page.goto(new URL('site/interests.html', home).href);
     await page.screenshot({ path: path.join(__dirname, 'tmp/interests-desktop.png'), fullPage: true });
     await page.getByRole('link', { name: 'Italiano', exact: true }).click();
     assert.equal(new URL(page.url()).pathname.split('/').pop(), 'interests-it.html');
@@ -142,7 +173,7 @@ const filename = (lang, section) => section === 'about'
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Enlarged text must reflow');
     const noJS = await browser.newContext({ javaScriptEnabled: false });
     const plain = await noJS.newPage();
-    await plain.goto(new URL('projects-it.html', home).href);
+    await plain.goto(new URL('site/projects-it.html', home).href);
     await plain.locator('nav.sections a[href="interests-it.html"]').click();
     await plain.getByRole('link', { name: 'Dansk', exact: true }).click();
     assert.equal(await plain.locator('main > section').getAttribute('id'), 'interests');

@@ -1,4 +1,4 @@
-"""Run with python check_media.py; checks optional image/video markup and validation."""
+"""Run with python builder/check_media.py; checks optional image/video markup and validation."""
 
 import build
 
@@ -7,9 +7,9 @@ render = build.render_interest_media
 assert render(None, "Photo / video") == ""
 assert 'media-placeholder' in render({"src": ""}, "Photo / video")
 image = render({"type": "image", "src": "portrait.png", "alt": 'A "portrait"'}, "Photo / video")
-assert '<img ' in image and 'loading="lazy"' in image and '&quot;portrait&quot;' in image
+assert '<img ' in image and 'src="site/portrait.png"' in image and 'loading="lazy"' in image and '&quot;portrait&quot;' in image
 video = render({"type": "video", "src": "media/skating.mp4", "alt": "Skating"}, "Photo / video")
-assert '<video ' in video and 'controls' in video and 'playsinline' in video
+assert '<video ' in video and 'src="site/media/skating.mp4"' in video and 'controls' in video and 'playsinline' in video
 assert 'autoplay' not in video and 'preload="metadata"' in video
 for invalid in [
     {"type": "iframe", "src": "media/file.mp4"},

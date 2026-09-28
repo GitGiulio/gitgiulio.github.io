@@ -2,11 +2,25 @@
   "profile": {
     "email": "giulio.locigno@gmail.com"
   },
+  "travel": {
+    "visited": [
+      { "country": "Italy", "note": "born" },
+      { "country": "South Africa", "note": "2010" },
+      { "country": "Denmark", "note": "2025 (living)" }
+    ]
+  },
   "en": {
+    "hunt": {
+      "names": ["The Blade", "The Hold", "The Knight", "The Rocket", "The Compass"],
+      "messages": ["It started with a pair of skates at four.", "There is usually another way up.", "The interesting move is rarely a straight line.", "Curiosity has achieved escape velocity.", "Some routes are better discovered by wandering."],
+      "found": "You found something.",
+      "progress": "{count} / 5 symbols found",
+      "complete": "You found them all. A door is open.",
+      "enter": "Off the Clock — enter"
+    },
     "trailLabel": "Pearl trail",
     "trailOn": "On",
     "trailOff": "Off",
-    "trailHint": "Move your mouse. Hold either button to intensify.",
     "title": "Giulio Lo Cigno — Python developer & computer engineering student",
     "description": "Giulio Lo Cigno, Python developer and MSc student in Computer Engineering at Aarhus University. Software engineering, AI and computer vision.",
     "role": "Python developer & MSc student",
@@ -17,7 +31,7 @@
     "portraitAlt": "Portrait of Giulio Lo Cigno",
     "eyebrow": "Software engineering · AI · Computer vision",
     "heading": "Building software. Exploring intelligence.",
-    "intro": "I'm Giulio, a Python developer and MSc student in Computer Engineering at Aarhus University, specialising in AI and computer vision.",
+    "intro": "I’m Giulio, a Python developer and MSc student in Computer Engineering at Aarhus University, specialising in AI and computer vision.",
     "about": "At EIC-SEWPG, I develop internal tools for simulation automation, data analysis and engineering workflows. My interests span deep learning, explainable AI and robotics — connecting an interest in intelligent systems with hands-on software development.",
     "nav": [
       "About",
@@ -29,22 +43,31 @@
     ],
     "interestsLabel": "Personal interests",
     "interestsIntro": "Away from software, I enjoy sport, chess and following developments in space exploration.",
+    "travelTitle": "Travel",
+    "travelText": "I also like to travel and keep track of the places that shaped the route so far.",
+    "travelLink": "Explore the map",
+    "travelEyebrow": "Travel log",
+    "travelHeading": "Places I have been",
+    "travelIntro": "A small map of countries I have visited so far. Hover a country to see the note.",
+    "travelVisited": "Visited",
+    "travelUnvisited": "Not visited yet",
+    "travelDefault": "Hover a country",
     "interests": [
       {
         "title": "Ice skating",
         "description": "I started speed skating at the age of four, competing in both short-track and long-track disciplines. As a junior, I reached the podium several times in my category at the Italian Championships.",
         "media": {
           "type": "image",
-          "src": "media/ice_skating.jpg",
+          "src": "",
           "alt": "Ice skating"
         }
       },
       {
         "title": "Bouldering",
-        "description": "Since moving to Denmark, I've taken up bouldering in place of short-track skating. I especially enjoy climbing with friends.",
+        "description": "Since moving to Denmark, I’ve taken up bouldering in place of short-track skating. I especially enjoy climbing with friends.",
         "media": {
           "type": "image",
-          "src": "media/bouldering.mp4",
+          "src": "",
           "alt": "Bouldering"
         }
       },
@@ -54,7 +77,7 @@
       },
       {
         "title": "Rocket science & space",
-        "description": "I'm fascinated by propulsion systems, orbital mechanics and spacecraft design. I enjoy learning how rockets work and keeping up with developments in space exploration."
+        "description": "I’m fascinated by propulsion systems, orbital mechanics and spacecraft design. I enjoy learning how rockets work and keeping up with developments in space exploration."
       }
     ],
     "contact": "Get in touch",
@@ -125,10 +148,10 @@
         "degree": "BSc in Computer Science",
         "school": "Università degli Studi di Trento",
         "date": "2021 — 2024",
-        "detail": "Bachelor's thesis on conditional and unconditional video generation and video–text alignment."
+        "detail": "Bachelor’s thesis on conditional and unconditional video generation and video–text alignment."
       }
     ],
-    "thesisLabel": "Bachelor's thesis",
+    "thesisLabel": "Bachelor’s thesis",
     "thesisTitle": "Conditional VS. Unconditional Video generation: A decision framework for video-text Alignment",
     "skillsLabel": "Skills & languages",
     "skillGroups": [
@@ -157,10 +180,17 @@
     "mediaPlaceholder": "Photo / video"
   },
   "it": {
+    "hunt": {
+      "names": ["La lama", "La presa", "Il cavallo", "Il razzo", "La bussola"],
+      "messages": ["Tutto è iniziato con un paio di pattini a quattro anni.", "Di solito c’è un’altra via per salire.", "La mossa interessante raramente segue una linea retta.", "La curiosità ha raggiunto la velocità di fuga.", "Alcuni percorsi si scoprono meglio camminando."],
+      "found": "Hai trovato qualcosa.",
+      "progress": "{count} / 5 simboli trovati",
+      "complete": "Li hai trovati tutti. Una porta si è aperta.",
+      "enter": "Fuori orario — entra"
+    },
     "trailLabel": "Scia madreperla",
     "trailOn": "Attiva",
     "trailOff": "Disattiva",
-    "trailHint": "..",
     "title": "Giulio Lo Cigno — Sviluppatore Python e studente di ingegneria informatica",
     "description": "Giulio Lo Cigno, sviluppatore Python e studente di laurea magistrale in Computer Engineering ad Aarhus University. Software, IA e visione artificiale.",
     "role": "Sviluppatore Python e studente magistrale",
@@ -170,9 +200,9 @@
     "languageLabel": "Scegli la lingua",
     "portraitAlt": "Ritratto di Giulio Lo Cigno",
     "eyebrow": "Sviluppo software · IA · Visione artificiale",
-    "heading": "Sviluppare software. Esplorare l'intelligenza.",
+    "heading": "Sviluppare software. Esplorare l’intelligenza.",
     "intro": "Sono Giulio, sviluppatore Python e studente di laurea magistrale in Computer Engineering presso Aarhus University, con specializzazione in IA e visione artificiale.",
-    "about": "Presso EIC-SEWPG sviluppo strumenti interni per automatizzare simulazioni, analizzare dati e supportare i flussi di lavoro ingegneristici. Mi interessano il deep learning, l'IA spiegabile e la robotica: unisco la curiosità per i sistemi intelligenti allo sviluppo concreto di software.",
+    "about": "Presso EIC-SEWPG sviluppo strumenti interni per automatizzare simulazioni, analizzare dati e supportare i flussi di lavoro ingegneristici. Mi interessano il deep learning, l’IA spiegabile e la robotica: unisco la curiosità per i sistemi intelligenti allo sviluppo concreto di software.",
     "nav": [
       "Profilo",
       "Esperienza",
@@ -182,14 +212,23 @@
       "Interessi"
     ],
     "interestsLabel": "Interessi personali",
-    "interestsIntro": "Al di fuori del software, mi dedico allo sport, agli scacchi e seguo gli sviluppi dell'esplorazione spaziale.",
+    "interestsIntro": "Al di fuori del software, mi dedico allo sport, agli scacchi e seguo gli sviluppi dell’esplorazione spaziale.",
+    "travelTitle": "Viaggi",
+    "travelText": "Mi piace anche viaggiare e tenere traccia dei luoghi che hanno segnato il percorso finora.",
+    "travelLink": "Esplora la mappa",
+    "travelEyebrow": "Diario di viaggio",
+    "travelHeading": "Luoghi in cui sono stato",
+    "travelIntro": "Una piccola mappa dei paesi che ho visitato finora. Passa sopra un paese per vedere la nota.",
+    "travelVisited": "Visitato",
+    "travelUnvisited": "Non ancora visitato",
+    "travelDefault": "Passa sopra un paese",
     "interests": [
       {
         "title": "Pattinaggio su ghiaccio",
         "description": "Ho iniziato a pattinare a quattro anni, gareggiando sia nello short track sia nella pista lunga. Da junior ho raggiunto più volte il podio nella mia categoria ai Campionati Italiani.",
         "media": {
           "type": "image",
-          "src": "media/ice_skating.jpg",
+          "src": "",
           "alt": "Pattinaggio su ghiaccio"
         }
       },
@@ -198,7 +237,7 @@
         "description": "Da quando mi sono trasferito in Danimarca, ho iniziato a praticare bouldering al posto dello short track. Mi piace soprattutto arrampicare con gli amici.",
         "media": {
           "type": "image",
-          "src": "media/bouldering.mp4",
+          "src": "",
           "alt": "Bouldering"
         }
       },
@@ -208,7 +247,7 @@
       },
       {
         "title": "Razzi e spazio",
-        "description": "Mi affascinano i sistemi di propulsione, la meccanica orbitale e la progettazione dei veicoli spaziali. Mi piace approfondire il funzionamento dei razzi e seguire gli sviluppi dell'esplorazione spaziale."
+        "description": "Mi affascinano i sistemi di propulsione, la meccanica orbitale e la progettazione dei veicoli spaziali. Mi piace approfondire il funzionamento dei razzi e seguire gli sviluppi dell’esplorazione spaziale."
       }
     ],
     "contact": "Contattami",
@@ -218,7 +257,7 @@
     "company": "European Innovation Center · Shanghai Electric Wind Power Group",
     "experience": [
       "Sviluppo e manutenzione di strumenti Python per eseguire e automatizzare simulazioni su un cluster interno con SLURM.",
-      "Sviluppo di strumenti per l'elaborazione e l'analisi di dati su larga scala, la visualizzazione e la reportistica.",
+      "Sviluppo di strumenti per l’elaborazione e l’analisi di dati su larga scala, la visualizzazione e la reportistica.",
       "Progettazione di meccanismi di autenticazione e controllo degli accessi e di infrastrutture per distribuire applicazioni interne containerizzate."
     ],
     "projectsLabel": "Progetti selezionati",
@@ -247,7 +286,7 @@
       {
         "title": "SpottyThings",
         "date": "2022 — 2023",
-        "description": "Progettazione e sviluppo, con altri due studenti, di un'applicazione web per noleggiare, vendere e acquistare beni. Backend in Node.js, frontend in Vue.js e database MongoDB, con distribuzione su Railway.",
+        "description": "Progettazione e sviluppo, con altri due studenti, di un’applicazione web per noleggiare, vendere e acquistare beni. Backend in Node.js, frontend in Vue.js e database MongoDB, con distribuzione su Railway.",
         "tags": [
           "Node.js",
           "Vue.js",
@@ -258,7 +297,7 @@
       {
         "title": "TUM4WORLD",
         "date": "2023",
-        "description": "Realizzazione, con altri tre studenti, di un sito per un'associazione con privilegi di accesso differenziati per ruolo. Backend con Java Servlet e frontend con JavaScript e CSS.",
+        "description": "Realizzazione, con altri tre studenti, di un sito per un’associazione con privilegi di accesso differenziati per ruolo. Backend con Java Servlet e frontend con JavaScript e CSS.",
         "tags": [
           "Java",
           "JavaScript",
@@ -279,7 +318,7 @@
         "degree": "Laurea in Informatica (BSc)",
         "school": "Università degli Studi di Trento",
         "date": "2021 — 2024",
-        "detail": "Tesi sulla generazione video condizionata e non condizionata e sull'allineamento tra video e testo."
+        "detail": "Tesi sulla generazione video condizionata e non condizionata e sull’allineamento tra video e testo."
       }
     ],
     "thesisLabel": "Tesi di laurea",
@@ -307,14 +346,21 @@
       "Danese · A2"
     ],
     "footer": "Giulio Lo Cigno · Aarhus, Danimarca",
-    "backTop": "Torna all'inizio",
+    "backTop": "Torna all’inizio",
     "mediaPlaceholder": "Foto / video"
   },
   "da": {
+    "hunt": {
+      "names": ["Klingen", "Grebet", "Springeren", "Raketten", "Kompasset"],
+      "messages": ["Det begyndte med et par skøjter som fireårig.", "Der er som regel en anden vej op.", "Det interessante træk følger sjældent en lige linje.", "Nysgerrigheden har nået flugthastigheden.", "Nogle ruter opdages bedst ved at vandre."],
+      "found": "Du har fundet noget.",
+      "progress": "{count} / 5 symboler fundet",
+      "complete": "Du fandt dem alle. En dør er åben.",
+      "enter": "Efter fyraften — gå ind"
+    },
     "trailLabel": "Perlemorsspor",
     "trailOn": "Til",
     "trailOff": "Fra",
-    "trailHint": "Bevæg musen. Hold en af museknapperne nede for at forstærke sporet.",
     "title": "Giulio Lo Cigno — Python-udvikler og kandidatstuderende i computerteknologi",
     "description": "Giulio Lo Cigno, Python-udvikler og kandidatstuderende i Computer Engineering på Aarhus Universitet. Softwareudvikling, AI og computer vision.",
     "role": "Python-udvikler og kandidatstuderende",
@@ -337,13 +383,22 @@
     ],
     "interestsLabel": "Personlige interesser",
     "interestsIntro": "Ved siden af software interesserer jeg mig for sport og skak og følger udviklingen inden for rumfart.",
+    "travelTitle": "Rejser",
+    "travelText": "Jeg kan også lide at rejse og holde styr på de steder, der indtil videre har formet ruten.",
+    "travelLink": "Udforsk kortet",
+    "travelEyebrow": "Rejselog",
+    "travelHeading": "Steder jeg har været",
+    "travelIntro": "Et lille kort over lande, jeg har besøgt indtil videre. Hold markøren over et land for at se noten.",
+    "travelVisited": "Besøgt",
+    "travelUnvisited": "Ikke besøgt endnu",
+    "travelDefault": "Hold markøren over et land",
     "interests": [
       {
         "title": "Skøjteløb",
         "description": "Jeg begyndte at løbe på skøjter som fireårig og konkurrerede i både shorttrack og langbaneløb. Som junior opnåede jeg flere podieplaceringer i min kategori ved de italienske mesterskaber.",
         "media": {
           "type": "image",
-          "src": "media/ice_skating.jpg",
+          "src": "",
           "alt": "Skøjteløb"
         }
       },
@@ -352,7 +407,7 @@
         "description": "Efter at være flyttet til Danmark er jeg begyndt at dyrke bouldering i stedet for shorttrack. Jeg nyder især at klatre sammen med venner.",
         "media": {
           "type": "image",
-          "src": "media/bouldering.mp4",
+          "src": "",
           "alt": "Bouldering"
         }
       },

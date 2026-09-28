@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101114">
+  <title>Luoghi in cui sono stato — Giulio Lo Cigno</title>
+  <meta name="description" content="Una piccola mappa dei paesi che ho visitato finora. Passa sopra un paese per vedere la nota.">
+  <meta property="og:title" content="Luoghi in cui sono stato — Giulio Lo Cigno">
+  <meta property="og:description" content="Una piccola mappa dei paesi che ho visitato finora. Passa sopra un paese per vedere la nota.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="en" href="travel.html"><link rel="alternate" hreflang="it" href="travel-it.html"><link rel="alternate" hreflang="da" href="travel-da.html"><link rel="alternate" hreflang="x-default" href="travel.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=e7c29bd2e2df">
+  <script src="trail.js?v=b4d93bb7bc09" defer></script>
+  <script src="eggs.js?v=97a0a9f7bda7" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <canvas id="pearl-trail" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <a class="wordmark" href="it.html" aria-label="Giulio Lo Cigno">GLC<span aria-hidden="true">.</span></a>
+    <nav class="sections" aria-label="Sezioni"><a href="it.html">Profilo</a><a href="experience-it.html">Esperienza</a><a href="projects-it.html">Progetti</a><a href="education-it.html">Formazione</a><a href="skills-it.html">Competenze</a><a href="interests-it.html">Interessi</a></nav>
+    <nav class="languages" aria-label="Scegli la lingua"><a href="travel.html" lang="en" hreflang="en">English</a><a href="travel-it.html" lang="it" hreflang="it" aria-current="page">Italiano</a><a href="travel-da.html" lang="da" hreflang="da">Dansk</a></nav>
+  </header>
+  <div class="layout">
+    <aside class="profile">
+      <div class="portrait-frame"><img src="portrait.png" width="250" height="250" alt="Ritratto di Giulio Lo Cigno"></div>
+      <p class="profile-name">Giulio <br>Lo Cigno<span aria-hidden="true">.</span></p>
+      <p class="role">Sviluppatore Python e studente magistrale</p>
+      <p class="location"><span aria-hidden="true">⌖</span> Aarhus, Danimarca</p>
+      <a class="contact-button" href="mailto:giulio.locigno@gmail.com">Contattami <span aria-hidden="true">↗</span></a>
+      <div class="effect-control" hidden>
+        <button id="trail-toggle" type="button" aria-pressed="false" data-on="Attiva" data-off="Disattiva"><span class="pearl-dot" aria-hidden="true"></span>Scia madreperla<span class="toggle-state">Disattiva</span></button>
+      </div>
+    </aside>
+    <main id="main" tabindex="-1">
+      <section id="travel" class="content-section" aria-labelledby="page-title"><p class="eyebrow">Diario di viaggio</p>
+        <h1 id="page-title">Luoghi in cui sono stato</h1>
+        <p class="lead">Una piccola mappa dei paesi che ho visitato finora. Passa sopra un paese per vedere la nota.</p><div class="map-panel">
+          <div class="map-copy">
+            <p class="eyebrow">Visitato</p>
+            <p id="map-status" aria-live="polite">Passa sopra un paese</p>
+          </div>
+          <svg id="travel-map" viewBox="0 0 960 500" role="img" aria-labelledby="map-title map-desc"
+               data-visited='[{&quot;country&quot;: &quot;Italy&quot;, &quot;note&quot;: &quot;born&quot;}, {&quot;country&quot;: &quot;South Africa&quot;, &quot;note&quot;: &quot;2010&quot;}, {&quot;country&quot;: &quot;Denmark&quot;, &quot;note&quot;: &quot;2025 (living)&quot;}]'
+               data-visited-label="Visitato"
+               data-unvisited-label="Non ancora visitato">
+            <title id="map-title">Luoghi in cui sono stato</title>
+            <desc id="map-desc">Una piccola mappa dei paesi che ho visitato finora. Passa sopra un paese per vedere la nota.</desc>
+            <rect class="map-ocean" width="960" height="500"></rect>
+            <path class="map-land" d="M105 92h214v112H105zM336 114h292v146H336zM654 96h198v135H654zM178 244h168v156H178zM420 285h184v156H420zM652 292h190v110H652z"></path>
+            <path class="country visited" data-country="Italy" data-visited="born" tabindex="0" d="M485 173l14 7 7 22-11 2 8 16 14 10-5 8-20-8-10-21-11-8 8-11Z"></path><path class="country visited" data-country="Denmark" data-visited="2025 (living)" tabindex="0" d="M482 138l10 3-2 8-10 1-4-6Z M497 146l7 2-3 6-6-1Z"></path><path class="country visited" data-country="South Africa" data-visited="2010" tabindex="0" d="M493 386l54-1 16 19-11 23-42 9-39-17Z"></path>
+          </svg>
+        </div>
+        <div class="egg-map"></div>
+        <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+        <script src="travel.js?v=b89d44f1ef73" defer></script></section>
+      <footer><div id="egg-collection" hidden>
+        <p id="egg-notice" role="status" aria-live="polite" aria-atomic="true"></p>
+        <p id="egg-progress" data-found="Hai trovato qualcosa."
+           data-progress="{count} / 5 simboli trovati" data-complete="Li hai trovati tutti. Una porta si è aperta."></p>
+        <div class="egg-rewards"><div class="egg-slots"><span class="egg-slot" data-egg-slot="blade" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M8 5v9l5 2h9q4 0 4 4H6v-6M11 20v4m11-4v4M4 25h21l3-2M9 9h5m-5 3h5"/></svg></span><span class="egg-slot" data-egg-slot="hold" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M5 20 9 9l10-4 8 9-4 11-12 2Z M10 18l4-7 6-1 M14 21l7-4 M5 6h2m-3 4h1"/></svg></span><span class="egg-slot" data-egg-slot="knight" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 27h19v-4H9l2-5 8-4-5-3-5 4-3-3 7-8 2 3 5-2 5 9-3 9 M17 9h1 M4 19v5h3"/></svg></span><span class="egg-slot" data-egg-slot="rocket" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M12 19 10 12Q15 4 26 4q0 11-8 16Z M11 12l-6 2-1 7 8-2m6 1-1 8 7-2 1-7 M9 23l-4 4m5-1-1 3m-3-8-3 1 M19 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/></svg></span><span class="egg-slot" data-egg-slot="compass" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3a13 13 0 1 0 0 26 13 13 0 0 0 0-26M19 19l-9 4 4-9 9-4Z M16 16h.1"/></svg></span></div>
+          <a id="secret-link" href="secret.html" hidden>Fuori orario — entra <span aria-hidden="true">↗</span></a></div>
+      </div><p>Giulio Lo Cigno · Aarhus, Danimarca</p><a href="#top">Torna all’inizio ↑</a></footer>
+    </main>
+  </div>
+</body>
+</html>
