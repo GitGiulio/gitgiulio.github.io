@@ -1,4 +1,4 @@
-/* Four small discoveries; progress is optional browser-local data. */
+/* Five small discoveries; progress is optional browser-local data. */
 (() => {
   const collection = document.querySelector('#egg-collection');
   const progress = document.querySelector('#egg-progress');
@@ -37,7 +37,7 @@
     if ((!storageAvailable || location.protocol === 'file:') && found.size) {
       const hash = `#eggs=${[...found].join(',')}`;
       history.replaceState(null, '', hash);
-      for (const link of document.querySelectorAll('header a[href]')) {
+      for (const link of document.querySelectorAll('header a[href], #secret-link')) {
         const url = new URL(link.href);
         if (url.pathname.endsWith('.html')) link.setAttribute('href', link.getAttribute('href').split('#')[0] + hash);
       }

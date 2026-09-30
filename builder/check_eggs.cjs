@@ -75,8 +75,13 @@ const server = http.createServer((request, response) => {
       await page.reload();
       assert.equal(await page.locator('#secret-link').isVisible(), true, 'Unlock survives reload');
       await page.locator('#secret-link').click();
-      assert.equal(await page.locator('body').innerText(), 'secret');
+      assert.equal(await page.locator('#room').isVisible(), true, 'Unlock opens the interactive room');
       assert.equal(new URL(page.url()).pathname.split('/').pop(), 'secret.html');
+      if (base.startsWith('file:')) {
+        await page.locator('.back-link').click();
+        assert.equal(await page.locator('[data-egg-slot].found').count(), 5, 'Returning from the room preserves file-preview progress');
+        await page.locator('#secret-link').click();
+      }
       await page.goBack();
       assert.equal(await page.locator('[data-egg-slot].found').count(), 5);
       await context.close();
@@ -107,7 +112,11 @@ const server = http.createServer((request, response) => {
     fs.mkdirSync(path.join(__dirname, 'tmp'), { recursive: true });
     await touch.screenshot({ path: path.join(__dirname, 'tmp/eggs-mobile.png'), fullPage: true });
     await touch.locator('#secret-link').tap();
-    assert.equal(await touch.locator('body').innerText(), 'secret');
+    await touch.waitForURL(url => url.pathname.endsWith('/site/secret.html'));
+    assert.equal(await touch.locator('#room').isVisible(), true, 'Touch unlock opens the interactive room');
+    await touch.locator('.back-link').tap();
+    await touch.waitForURL(url => url.pathname.endsWith('/index.html'));
+    assert.equal(await touch.locator('[data-egg-slot].found').count(), 5, 'Returning from the room preserves progress with blocked storage');
     await blocked.close();
 
     // Bad browser data must not crash or manufacture completion.
@@ -132,7 +141,7 @@ const server = http.createServer((request, response) => {
     assert.equal(await plain.locator('h1').innerText(), 'Projects');
     await noJS.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: unique 2 EN / 1 IT / 1 DA placements, five-second collection, permanent completion, saved progress, file/subpath URLs, keyboard/touch, denied/malformed storage, reduced motion, no JS, and secret-only page.');
+    console.log('PASS: unique 2 EN / 1 IT / 1 DA placements, five-second collection, permanent completion, saved progress, file/subpath URLs, keyboard/touch, denied/malformed storage, reduced motion, no JS, and secret-room entry/return.');
   } finally {
     await browser.close();
     server.close();
