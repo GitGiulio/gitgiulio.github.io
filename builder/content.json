@@ -5,7 +5,20 @@
   "travel": {
     "visited": [
       { "country": "Italy", "note": "born" },
+      { "country": "Coratia", "note": "200?" },
+      { "country": "United States of America", "note": "2006" },
       { "country": "South Africa", "note": "2010" },
+      { "country": "Malta", "note": "20??" },
+      { "country": "United Kingdom", "note": "20??" },
+      { "country": "Austria", "note": "20??" },
+      { "country": "Germany", "note": "2011" },
+      { "country": "Grece", "note": "2011" },
+      { "country": "Latvia", "note": "2019" },
+      { "country": "Estonia", "note": "2019" },
+      { "country": "Russia", "note": "2019" },
+      { "country": "Switzerland", "note": "2019" },
+      { "country": "Belgium", "note": "2022" },
+      { "country": "Australia ", "note": "2024" },
       { "country": "Denmark", "note": "2025 (living)" }
     ]
   },
