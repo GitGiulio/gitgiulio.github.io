@@ -6,8 +6,6 @@
   const tooltip = document.querySelector('#room-tooltip');
   const title = document.querySelector('#tooltip-title');
   const copy = document.querySelector('#tooltip-copy');
-  const preview = document.querySelector('#game-preview');
-  const motion = document.querySelector('#motion-toggle');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const games = { trackmania: 'Trackmania 2020', hearthstone: 'Hearthstone', chess: 'Chess.com', fez: 'FEZ' };
   const monitorStories = {
@@ -19,6 +17,32 @@
   let active;
   let pinned = false;
   let closeTimer;
+
+  // Only the spokes, drivetrain and boot move; the wall, bike frame and blade stay still.
+  for (const [id, cx, cy, radius] of [['front-spokes', 1389, 116, 87], ['rear-spokes', 1397, 382, 89]]) {
+    document.querySelector(`#${id}`).innerHTML = Array.from({ length: 28 }, (_, i) => {
+      const angle = i * Math.PI / 14;
+      return `<path d="M${cx + Math.cos(angle) * 9} ${cy + Math.sin(angle) * 9}L${cx + Math.cos(angle) * radius} ${cy + Math.sin(angle) * radius}"/>`;
+    }).join('');
+  }
+  const rain = document.querySelector('#window-rain');
+  for (let i = 0; i < 28; i++) {
+    const drop = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    drop.setAttribute('d', `M${(i * 53 + 17) % 430} ${i % 3 * 12}l-1.5 ${8 + i % 5 * 2}`);
+    drop.classList.add('ambient', 'rain-streak');
+    drop.style.cssText = `--duration:${1.9 + i % 7 * .13}s;--delay:-${i * .21}s`;
+    rain.append(drop);
+  }
+  for (const [i, x] of [21, 64, 122, 228, 274, 340, 370].entries()) {
+    const drop = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const y = 55 + i * 41 % 240;
+    drop.setAttribute('d', `M${x} ${y}q-2 5-1 8q2 3 3 0q0-3-2-8m0 0v-9`);
+    drop.classList.add('ambient', 'glass-drop');
+    drop.style.cssText = `--duration:${9.5 + i * 1.2}s;--delay:-${i * 2.7}s`;
+    rain.append(drop);
+  }
+  const clapBoot = document.querySelector('.clap-boot');
+  clapBoot.addEventListener('animationend', () => clapBoot.classList.remove('clapping'));
 
   // UN members plus the Holy See and Palestine; fixed code order keeps the daily draw identical across browsers.
   const countryCodes = `
@@ -87,7 +111,6 @@
     quiz.showModal();
     inputs[0].focus();
   }
-  document.querySelector('#flags-toggle').addEventListener('click', openFlags);
   document.querySelector('#flag-close').addEventListener('click', () => quiz.close());
   quiz.addEventListener('click', event => {
     const bounds = quiz.getBoundingClientRect();
@@ -115,7 +138,7 @@
   const cubeShadow = document.querySelector('#cube-shadow');
   const scramble = [[0, 1, 1], [1, 1, -1], [2, 1, 1], [0, 1, -1], [1, -1, 1], [2, -1, -1]];
   const solution = [...scramble].reverse().map(([axis, layer, direction]) => [axis, layer, -direction]);
-  const plastic = ['#ce573c', '#e69840', '#e7c955', '#e8dfc6', '#619c4d', '#5085b0'];
+  const plastic = ['#b9442c', '#d18c36', '#dbb84c', '#ddd2b4', '#538a40', '#4b7f96'];
   let pieces;
   let cubeFrame;
   function rotate(point, axis, angle) {
@@ -143,8 +166,8 @@
         const normal = viewCube(turning ? rotate(face.normal, move[0], angle) : face.normal);
         const vertices = face.vertices.map(point => viewCube(turning ? rotate(point, move[0], angle) : point));
         face.path.style.display = normal[2] > .001 ? '' : 'none';
-        face.path.setAttribute('d', vertices.map((point, i) => `${i ? 'L' : 'M'}${(748 + point[0] * 8.2).toFixed(2)} ${(530 - point[1] * 8.2).toFixed(2)}`).join('') + 'Z');
-        face.path.setAttribute('fill-opacity', String(.72 + normal[2] * .18 + normal[1] * .08));
+        face.path.setAttribute('d', vertices.map((point, i) => `${i ? 'L' : 'M'}${(748 + point[0] * 7.7).toFixed(2)} ${(529 - point[1] * 7.7).toFixed(2)}`).join('') + 'Z');
+        face.path.style.filter = `brightness(${.7 + normal[2] * .22 + normal[1] * .2})`;
         faces.push({ path: face.path, depth: vertices.reduce((sum, point) => sum + point[2], 0) });
       }
     }
@@ -153,8 +176,8 @@
   function resetCube() {
     cancelAnimationFrame(cubeFrame);
     cubeModel.removeAttribute('transform');
-    cubeShadow.setAttribute('rx', '16');
-    cubeShadow.setAttribute('opacity', '.35');
+    cubeShadow.setAttribute('rx', '17');
+    cubeShadow.setAttribute('opacity', '.6');
     cubeModel.replaceChildren();
     pieces = [];
     for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
@@ -193,9 +216,9 @@
     cubeModel.dataset.state = 'lifting';
     let step = 0, elapsed = 0, previous;
     function floatCube(amount) {
-      cubeModel.setAttribute('transform', `translate(748 ${530 - amount * 40}) scale(${1 + amount * .35}) translate(-748 -530)`);
-      cubeShadow.setAttribute('rx', String(16 - amount * 3));
-      cubeShadow.setAttribute('opacity', String(.35 - amount * .15));
+      cubeModel.setAttribute('transform', `translate(748 ${529 - amount * 40}) scale(${1 + amount * .28}) translate(-748 -529)`);
+      cubeShadow.setAttribute('rx', String(17 - amount * 4));
+      cubeShadow.setAttribute('opacity', String(.6 - amount * .32));
     }
     function frame(time) {
       if (previous !== undefined && body.dataset.motion === 'on') elapsed += time - previous;
@@ -231,9 +254,8 @@
 
   function setGame(game) {
     body.dataset.game = game;
-    document.querySelector('#current-game').textContent = games[game];
-    preview.value = game;
     for (const screen of document.querySelectorAll('.game-screen')) screen.classList.toggle('selected', screen.dataset.screen === game);
+    syncRecordings();
     if (active?.dataset.object === 'monitor') {
       title.textContent = games[game];
       copy.textContent = monitorStories[game];
@@ -242,20 +264,24 @@
   }
   const draw = Math.random();
   setGame(draw < .7 ? 'trackmania' : draw < .85 ? 'hearthstone' : draw < .99 ? 'chess' : 'fez');
-  preview.addEventListener('change', () => setGame(preview.value));
+
+  function syncRecordings() {
+    for (const video of document.querySelectorAll('.game-screen video')) {
+      if (!video.getAttribute('src')) continue;
+      if (video.parentElement.classList.contains('selected') && body.dataset.motion === 'on' && !document.hidden) video.play().catch(() => {});
+      else video.pause();
+    }
+  }
+  for (const video of document.querySelectorAll('.game-screen video')) video.addEventListener('loadeddata', syncRecordings);
+  document.addEventListener('visibilitychange', syncRecordings);
 
   function setMotion(on) {
     body.dataset.motion = on ? 'on' : 'off';
-    motion.setAttribute('aria-pressed', String(!on));
-    motion.querySelector('span').textContent = on ? 'Pause motion' : 'Resume motion';
+    document.querySelector('#motion-status').textContent = on ? 'Room motion resumed. Press M to pause.' : 'Room motion paused. Press M to resume.';
+    syncRecordings();
   }
   setMotion(!reduced.matches);
-  motion.addEventListener('click', () => setMotion(body.dataset.motion !== 'on'));
   reduced.addEventListener('change', () => setMotion(!reduced.matches));
-  document.querySelector('#objects-toggle').addEventListener('click', event => {
-    const visible = scene.classList.toggle('show-objects');
-    event.currentTarget.setAttribute('aria-pressed', String(visible));
-  });
 
   function placeTooltip() {
     if (!active || tooltip.hidden) return;
@@ -290,19 +316,20 @@
     title.textContent = button.dataset.object === 'monitor' ? games[body.dataset.game] : button.dataset.title;
     copy.textContent = button.dataset.object === 'monitor' ? monitorStories[body.dataset.game] : button.dataset.copy;
     if (button.dataset.object === 'cube') solveCube();
+    if (button.dataset.object === 'long-track' && body.dataset.motion === 'on') clapBoot.classList.add('clapping');
     tooltip.hidden = false;
     placeTooltip();
   }
   function scheduleHide() {
     clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
-      if (!pinned && active && document.activeElement !== active && !active.matches(':hover') && !tooltip.matches(':hover')) hideTooltip();
+      if (!pinned && active && document.activeElement !== active && !active.matches(':hover')) hideTooltip();
     }, 180);
   }
   for (const button of document.querySelectorAll('.hotspot')) {
     button.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch' && !pinned) showTooltip(button); });
     button.addEventListener('pointerleave', event => {
-      if (!pinned && active === button && document.activeElement !== button && !tooltip.contains(event.relatedTarget)) scheduleHide();
+      if (!pinned && active === button && document.activeElement !== button) scheduleHide();
     });
     button.addEventListener('focus', () => showTooltip(button));
     button.addEventListener('blur', () => { if (active === button && !button.matches(':hover') && !pinned) scheduleHide(); });
@@ -311,13 +338,22 @@
       else { showTooltip(button); pinned = true; }
     });
   }
-  tooltip.addEventListener('pointerenter', () => clearTimeout(closeTimer));
-  tooltip.addEventListener('pointerleave', scheduleHide);
   document.addEventListener('pointerdown', event => { if (!event.target.closest('.hotspot, #room-tooltip')) hideTooltip(); });
-  document.addEventListener('keydown', event => { if (event.key === 'Escape') hideTooltip(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') hideTooltip();
+    if (event.target.closest('input, textarea, select, [contenteditable="true"]') || event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+    if (event.key.toLowerCase() === 'm') setMotion(body.dataset.motion !== 'on');
+    if (event.key.toLowerCase() === 'o') scene.classList.toggle('show-objects');
+  });
   window.addEventListener('resize', placeTooltip);
   document.addEventListener('scroll', placeTooltip, true);
-  document.querySelector('.room-controls').hidden = false;
   document.querySelector('.room-hotspots').hidden = false;
-  document.querySelector('.preview-control').hidden = false;
+  const viewport = document.querySelector('.room-viewport');
+  viewport.scrollLeft = innerWidth < 700 ? scene.clientWidth * .39 - innerWidth / 2 : (scene.clientWidth - innerWidth) / 2;
+  viewport.addEventListener('wheel', event => {
+    if (!event.ctrlKey && viewport.scrollWidth > viewport.clientWidth && Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+      viewport.scrollLeft += event.deltaY;
+      event.preventDefault();
+    }
+  }, { passive: false });
 })();

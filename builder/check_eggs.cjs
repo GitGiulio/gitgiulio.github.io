@@ -78,6 +78,7 @@ const server = http.createServer((request, response) => {
       assert.equal(await page.locator('#room').isVisible(), true, 'Unlock opens the interactive room');
       assert.equal(new URL(page.url()).pathname.split('/').pop(), 'secret.html');
       if (base.startsWith('file:')) {
+        await page.locator('.back-link').focus();
         await page.locator('.back-link').click();
         assert.equal(await page.locator('[data-egg-slot].found').count(), 5, 'Returning from the room preserves file-preview progress');
         await page.locator('#secret-link').click();
@@ -114,6 +115,7 @@ const server = http.createServer((request, response) => {
     await touch.locator('#secret-link').tap();
     await touch.waitForURL(url => url.pathname.endsWith('/site/secret.html'));
     assert.equal(await touch.locator('#room').isVisible(), true, 'Touch unlock opens the interactive room');
+    await touch.locator('.back-link').focus();
     await touch.locator('.back-link').tap();
     await touch.waitForURL(url => url.pathname.endsWith('/index.html'));
     assert.equal(await touch.locator('[data-egg-slot].found').count(), 5, 'Returning from the room preserves progress with blocked storage');
