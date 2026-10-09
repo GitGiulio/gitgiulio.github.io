@@ -5,13 +5,13 @@
   "travel": {
     "visited": [
       { "country": "Italy", "note": "born" },
-      { "country": "Coratia", "note": "200?" },
+      { "country": "Coratia", "note": "2005" },
       { "country": "United States of America", "note": "2006" },
       { "country": "South Africa", "note": "2010" },
-      { "country": "Malta", "note": "20??" },
-      { "country": "United Kingdom", "note": "20??" },
-      { "country": "Austria", "note": "20??" },
-      { "country": "Germany", "note": "2011" },
+      { "country": "Malta", "note": "2017" },
+      { "country": "United Kingdom", "note": "2019" },
+      { "country": "Austria", "note": "2013" },
+      { "country": "Germany", "note": "2013" },
       { "country": "Grece", "note": "2011" },
       { "country": "Latvia", "note": "2019" },
       { "country": "Estonia", "note": "2019" },
@@ -22,6 +22,21 @@
       { "country": "Denmark", "note": "2025 (living)" }
     ]
   },
+  "secret": {
+    "monitor": {
+      "trackmania": "Trackmania 2020 is on tonight.",
+      "hearthstone": "Hearthstone is on tonight.",
+      "chess": "Chess.com is on tonight.",
+      "fez": "FEZ is on tonight, the one-percent guest."
+    },
+    "flags": "I like playing geography games, like Flagle. Three new countries every day, click or tap to guess today's flags.",
+    "bike": "Like a real (aspiring) Dane, I bike everywhere, whatever the weather.",
+    "cube": "I like puzzles, especially Rubik's cubes.",
+    "xray": "An ankle X-ray among the photographs above my desk.",
+    "inline": "A pair of inline skates, ready for a change of surface.",
+    "ferrari": "A little LEGO Ferrari Formula 1 car, parked next to the rocket.",
+    "turbines": "At EIC-SEWPG, I develop internal tools for simulation automation, data analysis and engineering workflows."
+  },
   "en": {
     "hunt": {
       "names": ["The Blade", "The Hold", "The Knight", "The Rocket", "The Compass"],
@@ -29,7 +44,7 @@
       "found": "You found something.",
       "progress": "{count} / 5 symbols found",
       "complete": "You found them all. A door is open.",
-      "enter": "Off the Clock — enter"
+      "enter": "Secret room"
     },
     "trailLabel": "Pearl trail",
     "trailOn": "On",
@@ -71,7 +86,7 @@
         "description": "I started speed skating at the age of four, competing in both short-track and long-track disciplines. As a junior, I reached the podium several times in my category at the Italian Championships.",
         "media": {
           "type": "image",
-          "src": "",
+          "src": "media/ice_skating.jpg",
           "alt": "Ice skating"
         }
       },
@@ -79,14 +94,14 @@
         "title": "Bouldering",
         "description": "Since moving to Denmark, I’ve taken up bouldering in place of short-track skating. I especially enjoy climbing with friends.",
         "media": {
-          "type": "image",
-          "src": "",
+          "type": "video",
+          "src": "media/bouldering.mp4",
           "alt": "Bouldering"
         }
       },
       {
         "title": "Chess",
-        "description": "I played chess for several years and took part in tournaments, including two editions of the CONI Trophy with the Trentino team. These days, I enjoy playing online in my free time."
+        "description": "I played chess for several years and took part in tournaments, including two editions of the CONI Trophy with the Trentino team. These days, I enjoy playing online in my free time, join me on TODO embed this https://www.chess.com/member/oiluigolongic if you want."
       },
       {
         "title": "Rocket science & space",
@@ -174,7 +189,7 @@
       },
       {
         "name": "AI & data",
-        "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"
+        "items": "PyTorch, scikit-learn, Pandas, SHAP, LIME"
       },
       {
         "name": "Tools & platforms",
@@ -199,7 +214,7 @@
       "found": "Hai trovato qualcosa.",
       "progress": "{count} / 5 simboli trovati",
       "complete": "Li hai trovati tutti. Una porta si è aperta.",
-      "enter": "Fuori orario — entra"
+      "enter": "Stanza segreta"
     },
     "trailLabel": "Scia madreperla",
     "trailOn": "Attiva",
@@ -241,7 +256,7 @@
         "description": "Ho iniziato a pattinare a quattro anni, gareggiando sia nello short track sia nella pista lunga. Da junior ho raggiunto più volte il podio nella mia categoria ai Campionati Italiani.",
         "media": {
           "type": "image",
-          "src": "",
+          "src": "media/ice_skating.jpg",
           "alt": "Pattinaggio su ghiaccio"
         }
       },
@@ -249,14 +264,14 @@
         "title": "Bouldering",
         "description": "Da quando mi sono trasferito in Danimarca, ho iniziato a praticare bouldering al posto dello short track. Mi piace soprattutto arrampicare con gli amici.",
         "media": {
-          "type": "image",
-          "src": "",
+          "type": "video",
+          "src": "media/bouldering.mp4",
           "alt": "Bouldering"
         }
       },
       {
         "title": "Scacchi",
-        "description": "Ho giocato a scacchi per diversi anni e partecipato a tornei, tra cui due edizioni del Trofeo CONI con la squadra del Trentino. Oggi continuo a giocare online nel tempo libero."
+        "description": "Ho giocato a scacchi per diversi anni e partecipato a tornei, tra cui due edizioni del Trofeo CONI con la squadra del Trentino. Oggi continuo a giocare online nel tempo libero, join me on TODO embed this https://www.chess.com/member/oiluigolongic if you want."
       },
       {
         "title": "Razzi e spazio",
@@ -344,7 +359,7 @@
       },
       {
         "name": "IA e dati",
-        "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"
+        "items": "PyTorch, scikit-learn, Pandas, SHAP, LIME"
       },
       {
         "name": "Strumenti e piattaforme",
@@ -369,7 +384,7 @@
       "found": "Du har fundet noget.",
       "progress": "{count} / 5 symboler fundet",
       "complete": "Du fandt dem alle. En dør er åben.",
-      "enter": "Efter fyraften — gå ind"
+      "enter": "Hemmelige rum"
     },
     "trailLabel": "Perlemorsspor",
     "trailOn": "Til",
@@ -411,7 +426,7 @@
         "description": "Jeg begyndte at løbe på skøjter som fireårig og konkurrerede i både shorttrack og langbaneløb. Som junior opnåede jeg flere podieplaceringer i min kategori ved de italienske mesterskaber.",
         "media": {
           "type": "image",
-          "src": "",
+          "src": "media/ice_skating.jpg",
           "alt": "Skøjteløb"
         }
       },
@@ -419,14 +434,14 @@
         "title": "Bouldering",
         "description": "Efter at være flyttet til Danmark er jeg begyndt at dyrke bouldering i stedet for shorttrack. Jeg nyder især at klatre sammen med venner.",
         "media": {
-          "type": "image",
-          "src": "",
+          "type": "video",
+          "src": "media/bouldering.mp4",
           "alt": "Bouldering"
         }
       },
       {
         "title": "Skak",
-        "description": "Jeg spillede skak i flere år og deltog i turneringer, blandt andet to udgaver af Trofeo CONI med holdet fra Trentino. I dag spiller jeg online i min fritid."
+        "description": "Jeg spillede skak i flere år og deltog i turneringer, blandt andet to udgaver af Trofeo CONI med holdet fra Trentino. I dag spiller jeg online i min fritid, join me on TODO embed this https://www.chess.com/member/oiluigolongic if you want."
       },
       {
         "title": "Raketter og rumfart",
@@ -514,7 +529,7 @@
       },
       {
         "name": "AI og data",
-        "items": "TensorFlow, Keras, OpenCV, Pandas, SHAP, LIME"
+        "items": "PyTorch, scikit-learn, Pandas, SHAP, LIME"
       },
       {
         "name": "Værktøjer og platforme",

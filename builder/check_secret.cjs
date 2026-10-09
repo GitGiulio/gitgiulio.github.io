@@ -7,7 +7,7 @@ const { pathToFileURL } = require('node:url');
 const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
 
 (async () => {
-    const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL || 'msedge', headless: true });
   const errors = [];
   try {
     const draws = [];
@@ -43,9 +43,64 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(url);
     await page.locator('.room-art').evaluate(img => img.decode());
+    await page.locator('.scene-layers image').evaluateAll(images => Promise.all(images.map(async image => {
+      const asset = new Image();
+      asset.src = image.getAttribute('href');
+      await asset.decode();
+    })));
+    assert.equal(await page.locator('button.lyric-note').count(), 4, 'Three sketch papers and the Avril skateboard can be opened');
+    assert.deepEqual(await page.locator('button.lyric-note').allTextContents(), ['', '', '', ''], 'No lyric text is printed across the room');
+    for (const [source, copy] of [['ankle_xRay.jpg', 'ankle'], ['kitesurf.jpg', 'kitesurf'], ['uluru.jpg', 'uluru']]) {
+      const original = path.join(__dirname, '../private', source);
+      if (fs.existsSync(original)) assert.deepEqual(fs.readFileSync(path.join(__dirname, `../site/media/memory-${copy}.jpg`)), fs.readFileSync(original), 'Supplied photographs remain byte-for-byte unchanged');
+    }
+    assert.equal(await page.locator('.memory-original').count(), 3);
+    assert.equal(await page.locator('.steam').count(), 0, 'The cleared desk has no steam');
+    for (const [note, heading, lines, lastLine] of [
+      ['sunshine', 's.u.n.s.h.i.n.e.', 16, 'È lenta la luce ha fretta ed è più veloce'],
+      ['dragon', 'Sangue di drago', 8, 'Perché pochi sanno che alla fine della favola sarà un tiranno a portarla via'],
+      ['rime', 'Le Rime (Gara tra 507 parole)', 5, 'Trenta che diventa trentatré'],
+      ['avril', 'Sk8er Boi', 12, 'They had a problem with his baggy clothes'],
+    ]) {
+      const trigger = page.locator(`[data-lyric="${note}"]`);
+      await trigger.focus();
+      await page.keyboard.press('Enter');
+      assert.equal(await page.locator('#lyric-dialog').isVisible(), true);
+      assert.equal(await page.locator('#lyric-title').innerText(), heading);
+      const quote = await page.locator('#lyric-copy').innerText();
+      assert.equal(quote.split('\n').length, lines, 'The selected paper reveals its complete quote');
+      assert.ok(quote.endsWith(lastLine));
+      const box = await page.locator('#lyric-dialog').boundingBox();
+      assert.ok(Math.abs(box.x + box.width / 2 - 836) < 2 && Math.abs(box.y + box.height / 2 - 470.5) < 2, 'The expanded paper is centered');
+      await page.locator('#lyric-copy').click();
+      assert.equal(await page.locator('#lyric-dialog').isVisible(), true, 'Selecting quote text does not dismiss the sheet');
+      await page.keyboard.press('Escape');
+      assert.equal(await page.locator('#lyric-dialog').isVisible(), false);
+      assert.equal(await trigger.evaluate(button => button === document.activeElement), true, 'Closing restores focus to the paper');
+    }
+    await page.locator('.lyric-note').last().evaluate(button => button.blur());
     fs.mkdirSync(path.join(__dirname, 'tmp'), { recursive: true });
     await page.screenshot({ path: path.join(__dirname, 'tmp/secret-room-clean.png'), fullPage: true });
     assert.equal(await page.locator('.daily-flag').count(), 3, 'Three daily country flags replace the fixed flags');
+    const exposedCloth = await page.evaluate(() => {
+      const gaps = [];
+      for (const phase of [0, .4, .7, 1]) for (const group of document.querySelectorAll('.flag-cloth')) {
+        const animation = group.querySelector('.flag-print').getAnimations()[0];
+        animation.pause();
+        animation.currentTime = phase * 6500 - animation.effect.getTiming().delay;
+        const image = group.querySelector('.daily-flag');
+        const outline = document.querySelector(`${group.getAttribute('clip-path').slice(4, -1)} path`);
+        const bounds = outline.getBBox(), inverse = image.getCTM().inverse();
+        for (let y = bounds.y; y < bounds.y + bounds.height; y++) for (let x = bounds.x; x < bounds.x + bounds.width; x++) {
+          const point = new DOMPoint(x, y);
+          if (!outline.isPointInFill(point)) continue;
+          const local = point.matrixTransform(outline.getCTM()).matrixTransform(inverse);
+          if (local.x < image.x.baseVal.value || local.y < image.y.baseVal.value || local.x > image.x.baseVal.value + image.width.baseVal.value || local.y > image.y.baseVal.value + image.height.baseVal.value) gaps.push({ phase, x, y });
+        }
+      }
+      return gaps;
+    });
+    assert.deepEqual(exposedCloth, [], 'Flag prints cover the whole cloth at every breeze extreme');
     assert.equal(await page.locator('#country-options option').count(), 195, 'All 193 UN members and two observer states are guessable');
     const flags = await page.locator('.daily-flag').evaluateAll(images => images.map(image => image.getAttribute('href')));
     assert.equal(new Set(flags).size, 3, 'Daily flags must be distinct');
@@ -60,7 +115,7 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     const answers = flags.map(src => countries.find(country => src.endsWith(`/${country.code}.svg`)).name);
     for (let i = 0; i < 3; i++) await page.locator(`#flag-guess-${i}`).fill(i === 0 ? 'Not a country' : answers[i]);
     await page.locator('#flag-check').click();
-    assert.match(await page.locator('#flag-result-0').innerText(), /try again/i);
+    assert.equal(await page.locator('#flag-result-0').innerText(), `Not quite. This is ${answers[0]}.`);
     assert.match(await page.locator('#flag-result-1').innerText(), /correct/i);
     await page.locator('#flag-guess-0').fill(answers[0].toUpperCase());
     await page.locator('#flag-check').click();
@@ -69,18 +124,24 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('#flag-quiz').isVisible(), false, 'Escape closes the native dialog');
     const game = await page.locator('body').getAttribute('data-game');
-    assert.deepEqual(await page.locator('[data-album]').evaluateAll(items => items.map(item => item.dataset.album)), ['?!', 'Verità supposte', 'Habemus Capa', 'Le dimensioni del mio caos', 'Il sogno eretico', 'Museica', 'Prisoner 709', 'Exuvia', 'Orbit Orbit'], 'Each Caparezza studio album has its own visible sleeve and story');
     assert.equal(await page.locator('.game-screen video').count(), 4);
     assert.ok(await page.locator('.game-screen video').evaluateAll(videos => videos.every(video => video.loop && video.muted && video.playsInline && !video.getAttribute('src'))), 'Four muted looping video slots retain placeholders until recordings arrive');
     assert.equal(await page.locator('.rain-streak').count(), 28);
     assert.equal(await page.locator('.glass-drop').count(), 7);
     assert.ok(await page.locator('.rain-streak').evaluateAll(drops => new Set(drops.map(drop => getComputedStyle(drop).animationDelay)).size > 20), 'Rain falls in independently phased streaks');
-    for (const object of ['monitor', 'flags', 'bike', 'xray', 'short-track', 'long-track', 'inline', 'climbing', 'rocket', 'ferrari', 'turbines', 'moon', 'spiderman', 'ironman', 'olivia', 'avril', 'rancore', ...Array.from({ length: 9 }, (_, i) => `capa-${i + 1}`)]) {
+    for (const object of ['monitor', 'flags', 'bike', 'xray', 'short-track', 'long-track', 'inline', 'climbing', 'rocket', 'ferrari', 'turbines']) {
       const target = page.locator(`[data-object="${object}"]`);
       await target.hover();
       assert.equal(await page.locator('#room-tooltip').isVisible(), true, `No hover story for ${object}`);
       assert.ok((await page.locator('#tooltip-copy').innerText()).length > 0);
       assert.equal(await page.locator('.room-scene').getAttribute('data-active'), object, `The ${object} hotspot is reachable without another object intercepting it`);
+    }
+    // These souvenirs are decorative. Dismiss the overlaid story before testing the artwork beneath it.
+    for (const [x, y] of [[695, 225], [624, 40], [780, 162], ...Array.from({ length: 9 }, (_, i) => [1050 + i * 62, 375])]) {
+      await page.keyboard.press('Escape');
+      await page.mouse.move(x, y);
+      await page.waitForTimeout(220);
+      assert.equal(await page.locator('#room-tooltip').isVisible(), false, `Decorative object at ${x}, ${y} must not open a story`);
     }
     assert.equal(await page.locator('body').getAttribute('data-game'), game, 'Hovering must not reroll the game');
     await page.locator('[data-object="bike"]').hover();
@@ -92,12 +153,19 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     await page.waitForFunction(previous => getComputedStyle(document.querySelector('.spokes-top')).transform !== previous, wheelBefore);
     assert.notEqual(await page.locator('.spokes-top').evaluate(el => getComputedStyle(el).transform), wheelBefore, 'Real spokes spin inside a stationary painted frame and rim');
     assert.notEqual(await page.locator('.crank').evaluate(el => getComputedStyle(el).transform), crankBefore, 'Crank arms turn with the wheels');
+    for (const [selector, x, y] of [['.spokes-top', 652, 287], ['.spokes-bottom', 596, 1064], ['.crank', 677, 773]]) {
+      assert.ok(await page.locator(selector).evaluate((el, [x, y]) => {
+        const moving = new DOMPoint(x, y).matrixTransform(el.getCTM());
+        const stationary = new DOMPoint(x, y).matrixTransform(el.parentElement.getCTM());
+        return Math.hypot(moving.x - stationary.x, moving.y - stationary.y) < .1;
+      }, [x, y]), 'Rotating bicycle parts retain their physical axle centers');
+    }
     assert.notEqual(await page.locator('.chain-links').evaluate(el => getComputedStyle(el).strokeDashoffset), chainBefore, 'Chain links circulate between chainring and cassette');
     assert.equal(await page.locator('#front-spokes image, #rear-spokes image').count(), 0, 'No rotating rectangular or circular artwork patches');
     await page.mouse.move(0, 0);
     await page.waitForTimeout(250);
     const cubeBefore = await page.locator('.cube-model').screenshot();
-    assert.ok(await page.locator('.cube-model').evaluate(cube => { const box = cube.getBBox(); return 546 - box.y - box.height >= 0 && 546 - box.y - box.height < 2; }), 'The resting cube meets its contact shadow on the desk');
+    assert.ok(await page.locator('.cube-model').evaluate(cube => { const box = cube.getBBox(); return 522 - box.y - box.height >= 0 && 522 - box.y - box.height < 2; }), 'The resting cube meets its contact shadow on the desk');
     await page.locator('[data-object="cube"]').hover();
     assert.match(await page.locator('#tooltip-copy').innerText(), /puzzles/i);
     await page.waitForFunction(() => document.querySelector('.cube-model').dataset.state === 'lifting');
@@ -128,6 +196,12 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     await page.locator('[data-object="long-track"]').hover();
     await page.waitForFunction(() => !['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(getComputedStyle(document.querySelector('.clap-boot')).transform));
     assert.notEqual(await page.locator('.clap-boot').evaluate(el => getComputedStyle(el).transform), 'none', 'The boot lifts at the heel, pivoting around its toe hinge');
+    assert.ok(await page.locator('.clap-boot').evaluate(el => {
+      const hinge = new DOMPoint(1098, 574);
+      const moving = hinge.matrixTransform(el.getCTM());
+      const fixed = hinge.matrixTransform(el.parentElement.getCTM());
+      return Math.hypot(moving.x - fixed.x, moving.y - fixed.y) < .1;
+    }), 'The toe hinge stays attached to its fixed blade during the clap');
     assert.equal(await page.locator('#clap-skate > image').evaluate(el => getComputedStyle(el).transform), 'none', 'The blade and shelf stay stationary');
     await page.mouse.move(0, 0);
     await page.waitForFunction(() => getComputedStyle(document.querySelector('.clap-boot')).transform === 'none');
@@ -147,7 +221,8 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     await page.keyboard.press('o');
     await page.locator('[data-object="monitor"]').hover();
     assert.equal(await page.locator(`.game-screen[data-screen="${game}"]`).isVisible(), true);
-    assert.match(await page.locator('#tooltip-copy').innerText(), /text will go here/, 'Game-specific story placeholders stay explicit');
+    assert.match(await page.locator('#tooltip-copy').innerText(), /is on tonight/, 'Monitor copy is complete and neutral');
+    assert.doesNotMatch(await page.locator('#tooltip-copy').innerText(), /placeholder|will go here|TODO/);
     await page.keyboard.press('Escape');
     await page.mouse.click(12, 12);
     fs.mkdirSync(path.join(__dirname, 'tmp'), { recursive: true });
@@ -173,6 +248,24 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     touch.on('pageerror', error => errors.push(error.message));
     await touch.goto(url);
     assert.equal(await touch.locator('body').getAttribute('data-motion'), 'off');
+    await touch.locator('[data-lyric="dragon"]').tap();
+    assert.ok(await touch.locator('#lyric-dialog').evaluate(dialog => dialog.scrollWidth <= dialog.clientWidth && dialog.getBoundingClientRect().height <= innerHeight - 24), 'The long quote fits the mobile viewport with internal scrolling');
+    await touch.screenshot({ path: path.join(__dirname, 'tmp/secret-lyric-mobile.png'), fullPage: true });
+    await touch.setViewportSize({ width: 320, height: 568 });
+    await touch.locator('#lyric-dialog').evaluate(dialog => { dialog.scrollTop = dialog.scrollHeight; });
+    assert.ok((await touch.locator('#lyric-copy').innerText()).endsWith('Perché pochi sanno che alla fine della favola sarà un tiranno a portarla via'));
+    assert.ok(await touch.locator('#lyric-dialog').evaluate(dialog => {
+      const bounds = dialog.getBoundingClientRect();
+      const quote = document.querySelector('#lyric-copy').getBoundingClientRect();
+      const close = document.querySelector('#lyric-close').getBoundingClientRect();
+      return dialog.scrollTop > 0 && quote.bottom <= bounds.bottom && close.top >= bounds.top && close.bottom <= bounds.bottom;
+    }), 'Even on a short phone screen, the final line and close button remain reachable');
+    await touch.setViewportSize({ width: 390, height: 844 });
+    await touch.locator('#lyric-close').tap();
+    assert.equal(await touch.locator('#lyric-dialog').isVisible(), false);
+    await touch.locator('[data-lyric="sunshine"]').tap();
+    await touch.touchscreen.tap(5, 5);
+    assert.equal(await touch.locator('#lyric-dialog').isVisible(), false, 'Tapping the backdrop closes the quote');
     await touch.locator('[data-object="cube"]').tap();
     assert.equal(await touch.locator('.cube-model').getAttribute('data-state'), 'solved', 'Reduced motion skips floating and layer animation');
     assert.equal(await touch.locator('.cube-model').getAttribute('transform'), null);
@@ -183,12 +276,23 @@ const url = pathToFileURL(path.join(__dirname, '../site/secret.html')).href;
     assert.equal(await touch.locator('#flag-quiz').isVisible(), true, 'The daily quiz opens on touch devices');
     assert.ok(await touch.locator('#flag-quiz').evaluate(dialog => dialog.scrollWidth <= dialog.clientWidth), 'The mobile quiz fits its dialog');
     await touch.screenshot({ path: path.join(__dirname, 'tmp/secret-flags-mobile.png'), fullPage: true });
+    await touch.keyboard.press('Escape');
+    for (const viewport of [{ width: 844, height: 390 }, { width: 667, height: 375 }]) {
+      await touch.setViewportSize(viewport);
+      for (const object of ['cube', 'ferrari']) {
+        await touch.keyboard.press('Escape');
+        await touch.locator(`[data-object="${object}"]`).tap();
+        assert.equal(await touch.locator('.room-scene').getAttribute('data-active'), object, `${object} stays independently reachable in landscape`);
+      }
+    }
     await touch.close();
     const plain = await browser.newPage({ javaScriptEnabled: false });
     await plain.goto(url);
     assert.equal(await plain.locator('.room-art').isVisible(), true, 'The illustration survives without JavaScript');
+    assert.equal(await plain.locator('.lyric-note:disabled').count(), 4);
+    assert.ok(await plain.locator('#cube-model path').count() > 0, 'The static cube remains on the desk without JavaScript');
     assert.deepEqual(errors, []);
-    console.log('PASS: shared daily 195-country flag game, real cube turns and grounded landing, moving spokes/crank/chain, one toe-hinged clap with stationary blade, phased rain, all music/superhero/EIC stories, native video placeholders, full-screen layouts, keyboard/touch, reduced motion, and no-JS artwork.');
+    console.log('PASS: rebuilt room, protected original photos, four lyric views and exact revised quotes, touch/keyboard dismissal and short-phone scrolling; daily 195-country flag game, cube, bike and clap animations, object stories, full-screen layouts, reduced motion, and no-JS artwork.');
   } finally {
     await browser.close();
   }

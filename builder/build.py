@@ -294,6 +294,19 @@ def render(lang, text, section):
 '''
 
 
+def sync_room_stories():
+    """Keep the hand-authored room's embedded stories in sync with content.json."""
+    stories = dict(CONTENT['secret'])
+    for name, index in {'short-track': 0, 'long-track': 0, 'climbing': 1, 'rocket': 3}.items():
+        stories[name] = CONTENT['en']['interests'][index]['description']
+    payload = json.dumps(stories, ensure_ascii=False, indent=2).replace('<', r'\u003c')
+    room = SITE / 'secret.html'
+    marker = '<script id="room-stories" type="application/json">'
+    before, current = room.read_text(encoding='utf-8').split(marker, 1)
+    _, after = current.split('</script>', 1)
+    room.write_text(before + marker + '\n' + payload + '\n</script>' + after, encoding='utf-8')
+
+
 if __name__ == "__main__":
     SITE.mkdir(exist_ok=True)
     for language in PAGES:
@@ -310,4 +323,5 @@ if __name__ == "__main__":
         output = page_output(language, "travel")
         CURRENT_PAGE_IN_SITE = True
         output.write_text(render(language, CONTENT[language], "travel"), encoding="utf-8")
-    print(f"Built index.html plus {len(SECTIONS) * len(PAGES) - 1 + len(PAGES)} site pages in {SITE}.")
+    sync_room_stories()
+    print(f"Built index.html plus {len(SECTIONS) * len(PAGES) - 1 + len(PAGES)} site pages in {SITE}; synced secret-room stories.")

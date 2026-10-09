@@ -4,22 +4,15 @@
   if (location.hash.startsWith('#eggs=')) document.querySelector('.back-link').hash = location.hash;
   const scene = document.querySelector('.room-scene');
   const tooltip = document.querySelector('#room-tooltip');
-  const title = document.querySelector('#tooltip-title');
   const copy = document.querySelector('#tooltip-copy');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const games = { trackmania: 'Trackmania 2020', hearthstone: 'Hearthstone', chess: 'Chess.com', fez: 'FEZ' };
-  const monitorStories = {
-    trackmania: 'Trackmania 2020 is on tonight. Your game-specific text will go here.',
-    hearthstone: 'Hearthstone is on tonight. Your game-specific text will go here.',
-    chess: 'Chess.com is on tonight. Your game-specific text will go here.',
-    fez: 'FEZ is on tonight — the one-percent guest. Your game-specific text will go here.',
-  };
+  const stories = JSON.parse(document.querySelector('#room-stories').textContent);
   let active;
   let pinned = false;
   let closeTimer;
 
   // Only the spokes, drivetrain and boot move; the wall, bike frame and blade stay still.
-  for (const [id, cx, cy, radius] of [['front-spokes', 1389, 116, 87], ['rear-spokes', 1397, 382, 89]]) {
+  for (const [id, cx, cy, radius] of [['front-spokes', 652, 287, 249], ['rear-spokes', 596, 1064, 244]]) {
     document.querySelector(`#${id}`).innerHTML = Array.from({ length: 28 }, (_, i) => {
       const angle = i * Math.PI / 14;
       return `<path d="M${cx + Math.cos(angle) * 9} ${cy + Math.sin(angle) * 9}L${cx + Math.cos(angle) * radius} ${cy + Math.sin(angle) * radius}"/>`;
@@ -105,17 +98,13 @@
   }
   updateDailyFlags();
   document.addEventListener('visibilitychange', () => { if (!document.hidden) updateDailyFlags(); });
-  function openFlags() {
+  function openFlags(trigger) {
     updateDailyFlags();
-    hideTooltip();
-    quiz.showModal();
+    openDialog(quiz, trigger);
     inputs[0].focus();
+    quiz.scrollTop = 0;
   }
   document.querySelector('#flag-close').addEventListener('click', () => quiz.close());
-  quiz.addEventListener('click', event => {
-    const bounds = quiz.getBoundingClientRect();
-    if (event.target === quiz && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) quiz.close();
-  });
   document.querySelector('#flag-form').addEventListener('submit', event => {
     event.preventDefault();
     updateDailyFlags();
@@ -125,9 +114,9 @@
       const answer = normalize(input.value);
       const matches = [country.name, countryNames.of(country.code.toUpperCase()), ...(aliases[country.code] || [])].some(name => normalize(name) === answer);
       const result = document.querySelector(`#flag-result-${i}`);
-      result.textContent = matches ? `Correct — ${country.name}` : answer ? 'Not quite. Try again.' : '';
+      result.textContent = matches ? `Correct: ${country.name}` : answer ? `Not quite. This is ${country.name}.` : 'Enter a country name.';
       result.dataset.correct = String(matches);
-      input.setAttribute('aria-invalid', String(Boolean(answer) && !matches));
+      input.setAttribute('aria-invalid', String(!matches));
       correct += Number(matches);
     });
     score.textContent = `${correct} / 3 identified${correct === 3 ? ' · You got them all!' : ''}`;
@@ -166,7 +155,7 @@
         const normal = viewCube(turning ? rotate(face.normal, move[0], angle) : face.normal);
         const vertices = face.vertices.map(point => viewCube(turning ? rotate(point, move[0], angle) : point));
         face.path.style.display = normal[2] > .001 ? '' : 'none';
-        face.path.setAttribute('d', vertices.map((point, i) => `${i ? 'L' : 'M'}${(748 + point[0] * 7.7).toFixed(2)} ${(529 - point[1] * 7.7).toFixed(2)}`).join('') + 'Z');
+        face.path.setAttribute('d', vertices.map((point, i) => `${i ? 'L' : 'M'}${(828 + point[0] * 7.7).toFixed(2)} ${(505 - point[1] * 7.7).toFixed(2)}`).join('') + 'Z');
         face.path.style.filter = `brightness(${.7 + normal[2] * .22 + normal[1] * .2})`;
         faces.push({ path: face.path, depth: vertices.reduce((sum, point) => sum + point[2], 0) });
       }
@@ -216,7 +205,7 @@
     cubeModel.dataset.state = 'lifting';
     let step = 0, elapsed = 0, previous;
     function floatCube(amount) {
-      cubeModel.setAttribute('transform', `translate(748 ${529 - amount * 40}) scale(${1 + amount * .28}) translate(-748 -529)`);
+      cubeModel.setAttribute('transform', `translate(828 ${505 - amount * 40}) scale(${1 + amount * .28}) translate(-828 -505)`);
       cubeShadow.setAttribute('rx', String(17 - amount * 4));
       cubeShadow.setAttribute('opacity', String(.6 - amount * .32));
     }
@@ -257,8 +246,7 @@
     for (const screen of document.querySelectorAll('.game-screen')) screen.classList.toggle('selected', screen.dataset.screen === game);
     syncRecordings();
     if (active?.dataset.object === 'monitor') {
-      title.textContent = games[game];
-      copy.textContent = monitorStories[game];
+      copy.textContent = stories.monitor[game];
       placeTooltip();
     }
   }
@@ -313,8 +301,7 @@
     button.classList.add('active');
     button.setAttribute('aria-describedby', 'room-tooltip');
     scene.dataset.active = button.dataset.object;
-    title.textContent = button.dataset.object === 'monitor' ? games[body.dataset.game] : button.dataset.title;
-    copy.textContent = button.dataset.object === 'monitor' ? monitorStories[body.dataset.game] : button.dataset.copy;
+    copy.textContent = button.dataset.object === 'monitor' ? stories.monitor[body.dataset.game] : stories[button.dataset.object];
     if (button.dataset.object === 'cube') solveCube();
     if (button.dataset.object === 'long-track' && body.dataset.motion === 'on') clapBoot.classList.add('clapping');
     tooltip.hidden = false;
@@ -323,8 +310,36 @@
   function scheduleHide() {
     clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
-      if (!pinned && active && document.activeElement !== active && !active.matches(':hover')) hideTooltip();
+      if (!pinned && active && document.activeElement !== active && !active.matches(':hover') && !tooltip.matches(':hover')) hideTooltip();
     }, 180);
+  }
+  tooltip.addEventListener('pointerenter', () => clearTimeout(closeTimer));
+  tooltip.addEventListener('pointerleave', scheduleHide);
+  const lyricDialog = document.querySelector('#lyric-dialog');
+  function openDialog(dialog, trigger) {
+    trigger.focus({ preventScroll: true });
+    hideTooltip();
+    dialog.showModal();
+    dialog.scrollTop = 0;
+  }
+  for (const dialog of [quiz, lyricDialog]) {
+    dialog.addEventListener('click', event => {
+      const bounds = dialog.getBoundingClientRect();
+      if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
+    });
+  }
+  for (const button of document.querySelectorAll('.lyric-note')) {
+    button.disabled = false;
+    button.addEventListener('click', () => {
+      lyricDialog.dataset.song = button.dataset.lyric;
+      document.querySelector('#lyric-title').textContent = button.dataset.title;
+      document.querySelector('.lyric-credit').textContent = button.dataset.artist;
+      document.querySelector('#lyric-art').replaceChildren(button.querySelector('svg').cloneNode(true));
+      const quote = document.querySelector('#lyric-copy');
+      quote.lang = button.dataset.language;
+      quote.textContent = document.querySelector(`#lyric-${button.dataset.lyric}`).content.textContent.trim();
+      openDialog(lyricDialog, button);
+    });
   }
   for (const button of document.querySelectorAll('.hotspot')) {
     button.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch' && !pinned) showTooltip(button); });
@@ -334,14 +349,15 @@
     button.addEventListener('focus', () => showTooltip(button));
     button.addEventListener('blur', () => { if (active === button && !button.matches(':hover') && !pinned) scheduleHide(); });
     button.addEventListener('click', () => {
-      if (button.dataset.object === 'flags') openFlags();
+      if (button.dataset.object === 'flags') openFlags(button);
       else { showTooltip(button); pinned = true; }
     });
   }
   document.addEventListener('pointerdown', event => { if (!event.target.closest('.hotspot, #room-tooltip')) hideTooltip(); });
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') hideTooltip();
-    if (event.target.closest('input, textarea, select, [contenteditable="true"]') || event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+    if (document.querySelector('dialog[open]')) return;
+    if (event.target.isContentEditable || event.target.closest('input, textarea, select') || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey || event.repeat) return;
     if (event.key.toLowerCase() === 'm') setMotion(body.dataset.motion !== 'on');
     if (event.key.toLowerCase() === 'o') scene.classList.toggle('show-objects');
   });
