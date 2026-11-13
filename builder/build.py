@@ -264,6 +264,7 @@ def render(lang, text, section):
   <link rel="stylesheet" href="{asset_path('styles.css')}?v={ASSET_VERSIONS['styles.css']}">
   <script src="{asset_path('trail.js')}?v={ASSET_VERSIONS['trail.js']}" defer></script>
   <script src="{asset_path('eggs.js')}?v={ASSET_VERSIONS['eggs.js']}" defer></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9ef6f8b8-e5c5-41de-914d-20b1a3b3dcd5" data-domains="gitgiulio.github.io"></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">{t['skip']}</a>
